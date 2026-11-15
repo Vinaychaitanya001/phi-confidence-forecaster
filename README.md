@@ -33,6 +33,7 @@ Synthetic notes only; results do not transfer to real clinical text without loca
 - `Deidentification/` the base system with our changes (43 MedDeID regex rules in `src/deid/detectors/meddeid_rules.py`)
 - `scripts/run_test.sh` the single final test run; `tests/` unit tests
 - `results/` reports and the saved forecasters (large caches are not committed)
+- `results/annotated/test_v5_examples.md` test notes with every predicted span, its confidence and verdict, and the missed PHI; `python -m deidconf.annotate` writes the full per-note file for all notes
 
 ## Reproduce
 
@@ -46,6 +47,7 @@ python -m deidconf.evaluate --split cal --rules live --model redecode --tag _v5
 python -m deidconf.features --split cal --eval-tag _v5
 python -m deidconf.confidence --features results/features/cal_v5.rules+model.csv --target y_is_phi --save
 python -m deidconf.pipeline --text "Patient: Okkes Reilly, seen by Dr Amelia Hart at St Mary's Hospital, Leeds."
+python -m deidconf.annotate --split test --tag _v5   # per-note annotated view
 python -m pytest
 ```
 
