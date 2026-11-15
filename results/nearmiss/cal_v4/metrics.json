@@ -1,0 +1,126 @@
+{
+ "split": "cal",
+ "tag": "_v4",
+ "tau": 0.02,
+ "n_candidates": 855,
+ "n_positive": 111,
+ "gold_missed_spans": 194,
+ "gold_missed_with_candidate": 110,
+ "has_mc_dropout": false,
+ "span_level": {
+  "raw_mass": {
+   "auroc": 0.8818899544705996,
+   "auprc": 0.4914984751958919,
+   "ece": 0.09083567404607584,
+   "missed_found@5%cands": 0.23423423423423423,
+   "missed_found@10%cands": 0.5045045045045045,
+   "missed_found@20%cands": 0.7027027027027027,
+   "add@0.5": {
+    "added": 140,
+    "true_missed": 72,
+    "precision": 0.5142857142857142,
+    "missed_gold_recovered_frac": 0.6486486486486487
+   },
+   "add@0.3": {
+    "added": 204,
+    "true_missed": 87,
+    "precision": 0.4264705882352941,
+    "missed_gold_recovered_frac": 0.7837837837837838
+   },
+   "add@0.2": {
+    "added": 239,
+    "true_missed": 91,
+    "precision": 0.3807531380753138,
+    "missed_gold_recovered_frac": 0.8198198198198198
+   }
+  },
+  "p1": {
+   "auroc": 0.8998534825147729,
+   "auprc": 0.7299029844604233,
+   "ece": 0.0330504026892772,
+   "missed_found@5%cands": 0.3783783783783784,
+   "missed_found@10%cands": 0.5495495495495496,
+   "missed_found@20%cands": 0.7477477477477478,
+   "add@0.5": {
+    "added": 70,
+    "true_missed": 58,
+    "precision": 0.8285714285714286,
+    "missed_gold_recovered_frac": 0.5225225225225225
+   },
+   "add@0.3": {
+    "added": 93,
+    "true_missed": 64,
+    "precision": 0.6881720430107527,
+    "missed_gold_recovered_frac": 0.5765765765765766
+   },
+   "add@0.2": {
+    "added": 126,
+    "true_missed": 71,
+    "precision": 0.5634920634920635,
+    "missed_gold_recovered_frac": 0.6396396396396397
+   }
+  },
+  "p1+p2": {
+   "auroc": 0.9562627143272305,
+   "auprc": 0.8636764947752935,
+   "ece": 0.03512241708966117,
+   "missed_found@5%cands": 0.3783783783783784,
+   "missed_found@10%cands": 0.6666666666666666,
+   "missed_found@20%cands": 0.9009009009009009,
+   "add@0.5": {
+    "added": 87,
+    "true_missed": 75,
+    "precision": 0.8620689655172413,
+    "missed_gold_recovered_frac": 0.6756756756756757
+   },
+   "add@0.3": {
+    "added": 103,
+    "true_missed": 80,
+    "precision": 0.7766990291262136,
+    "missed_gold_recovered_frac": 0.7207207207207207
+   },
+   "add@0.2": {
+    "added": 113,
+    "true_missed": 87,
+    "precision": 0.7699115044247787,
+    "missed_gold_recovered_frac": 0.7837837837837838
+   }
+  },
+  "all": {
+   "auroc": 0.980783202557396,
+   "auprc": 0.9426233713525964,
+   "ece": 0.020491441986113433,
+   "missed_found@5%cands": 0.38738738738738737,
+   "missed_found@10%cands": 0.7387387387387387,
+   "missed_found@20%cands": 0.954954954954955,
+   "add@0.5": {
+    "added": 99,
+    "true_missed": 94,
+    "precision": 0.9494949494949495,
+    "missed_gold_recovered_frac": 0.8468468468468469
+   },
+   "add@0.3": {
+    "added": 111,
+    "true_missed": 98,
+    "precision": 0.8828828828828829,
+    "missed_gold_recovered_frac": 0.8828828828828829
+   },
+   "add@0.2": {
+    "added": 116,
+    "true_missed": 99,
+    "precision": 0.853448275862069,
+    "missed_gold_recovered_frac": 0.8918918918918919
+   }
+  }
+ },
+ "note_level": {
+  "notes": 1000,
+  "notes_with_miss": 166,
+  "auroc_p_any": 0.8348863078212128,
+  "auroc_baseline_ncands": 0.7046928722082575,
+  "ece_p_any": 0.07683968991723668,
+  "missed_spans_in_top5%notes": 0.32989690721649484,
+  "missed_spans_in_top10%notes": 0.5824742268041238,
+  "missed_spans_in_top20%notes": 0.6855670103092784
+ }
+}

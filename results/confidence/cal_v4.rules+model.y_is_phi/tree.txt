@@ -1,0 +1,31 @@
+|--- num__our_score <= 0.908
+|   |--- num__p1_p_o_mean <= 0.069
+|   |   |--- num__p2_pdm_o_b9 <= 0.405
+|   |   |   |--- n=151  confidence=1.000
+|   |   |--- num__p2_pdm_o_b9 >  0.405
+|   |   |   |--- n=30  confidence=0.933
+|   |--- num__p1_p_o_mean >  0.069
+|   |   |--- num__p2_cv_pmax <= 0.047
+|   |   |   |--- n=50  confidence=0.240
+|   |   |--- num__p2_cv_pmax >  0.047
+|   |   |   |--- n=31  confidence=0.774
+|--- num__our_score >  0.908
+|   |--- num__p1_p_o_mean <= 0.772
+|   |   |--- num__our_score <= 0.969
+|   |   |   |--- num__p2_nb_p_same_mean <= 0.000
+|   |   |   |   |--- n=30  confidence=0.800
+|   |   |   |--- num__p2_nb_p_same_mean >  0.000
+|   |   |   |   |--- n=55  confidence=1.000
+|   |   |--- num__our_score >  0.969
+|   |   |   |--- num__p2_frac_words_entity <= 0.464
+|   |   |   |   |--- num__p1_len_chars <= 32.500
+|   |   |   |   |   |--- n=234  confidence=0.991
+|   |   |   |   |--- num__p1_len_chars >  32.500
+|   |   |   |   |   |--- n=33  confidence=0.788
+|   |   |   |--- num__p2_frac_words_entity >  0.464
+|   |   |   |   |--- num__p1_len_chars <= 4.500
+|   |   |   |   |   |--- n=45  confidence=0.978
+|   |   |   |   |--- num__p1_len_chars >  4.500
+|   |   |   |   |   |--- n=5115  confidence=1.000
+|   |--- num__p1_p_o_mean >  0.772
+|   |   |--- n=39  confidence=0.590

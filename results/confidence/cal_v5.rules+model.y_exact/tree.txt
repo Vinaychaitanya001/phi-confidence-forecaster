@@ -1,0 +1,43 @@
+|--- num__our_score <= 0.969
+|   |--- cat__our_rule_first_name+last_name <= 0.500
+|   |   |--- cat__our_case_title <= 0.500
+|   |   |   |--- num__our_has_digit <= 0.500
+|   |   |   |   |--- num__p1_mc_std_cat_max <= 0.244
+|   |   |   |   |   |--- n=100  confidence=0.000
+|   |   |   |   |--- num__p1_mc_std_cat_max >  0.244
+|   |   |   |   |   |--- n=30  confidence=0.033
+|   |   |   |--- num__our_has_digit >  0.500
+|   |   |   |   |--- n=30  confidence=0.267
+|   |   |--- cat__our_case_title >  0.500
+|   |   |   |--- num__p1_mc_p_cat_mean <= 0.859
+|   |   |   |   |--- num__p2_top_gap_mean <= 0.708
+|   |   |   |   |   |--- n=36  confidence=0.167
+|   |   |   |   |--- num__p2_top_gap_mean >  0.708
+|   |   |   |   |   |--- n=34  confidence=0.559
+|   |   |   |--- num__p1_mc_p_cat_mean >  0.859
+|   |   |   |   |--- n=33  confidence=0.909
+|   |--- cat__our_rule_first_name+last_name >  0.500
+|   |   |--- num__p2_next_p_same <= 0.000
+|   |   |   |--- n=39  confidence=1.000
+|   |   |--- num__p2_next_p_same >  0.000
+|   |   |   |--- n=30  confidence=0.933
+|--- num__our_score >  0.969
+|   |--- num__p1_p_o_max <= 0.999
+|   |   |--- num__p2_next_p_same <= 0.007
+|   |   |   |--- num__p1_mc_o_mean <= 0.707
+|   |   |   |   |--- num__p1_mc_o_mean <= 0.383
+|   |   |   |   |   |--- n=4942  confidence=0.995
+|   |   |   |   |--- num__p1_mc_o_mean >  0.383
+|   |   |   |   |   |--- n=332  confidence=0.919
+|   |   |   |--- num__p1_mc_o_mean >  0.707
+|   |   |   |   |--- n=50  confidence=0.640
+|   |   |--- num__p2_next_p_same >  0.007
+|   |   |   |--- n=30  confidence=0.367
+|   |--- num__p1_p_o_max >  0.999
+|   |   |--- num__p1_len_chars <= 20.500
+|   |   |   |--- num__p2_note_entropy_mean <= 0.033
+|   |   |   |   |--- n=35  confidence=1.000
+|   |   |   |--- num__p2_note_entropy_mean >  0.033
+|   |   |   |   |--- n=30  confidence=0.800
+|   |   |--- num__p1_len_chars >  20.500
+|   |   |   |--- n=49  confidence=0.000

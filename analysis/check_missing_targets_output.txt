@@ -1,0 +1,35 @@
+=== required_pii_targets not found as (text,label) span ===
+documents affected: 1448
+
+[1448] verbatim, partly covered by a span
+    ('en-gb-synthetic-00003', 'patient.age_hyphenated', 'Age_Birthdate', '42-year-old', 'HS number: 0007267674\\n\\nPatient: Elis, a 42-year-old African American male patient\\nMRN: 0466')
+    ('en-gb-synthetic-00006', 'patient.age_hyphenated', 'Age_Birthdate', '79-year-old', 'g progress note\\n\\nPatient: N. Whitfield, 79-year-old African American female patient  \\nClini')
+    ('en-gb-synthetic-00007', 'patient.age_hyphenated', 'Age_Birthdate', '41-year-old', '\\nPatient: Raheemah ALDRIDGE  \\nThis is a 41-year-old African-American male patient reviewed ')
+    ('en-gb-synthetic-00015', 'patient.age_hyphenated', 'Age_Birthdate', '36-year-old', 'nfair-ym-Muallt / Builth Wells, LD2 3AA\\n36-year-old African-American female patient, attend')
+    ('en-gb-synthetic-00018', 'patient.age_hyphenated', 'Age_Birthdate', '36-year-old', 'sion ID: 0833150296\\n\\nCurrent assessment\\n36-year-old Black male patient admitted with confir')
+    ('en-gb-synthetic-00024', 'patient.age_hyphenated', 'Age_Birthdate', '50-year-old', 'te\\nDate: 2021-02-24\\nPatient: Roksana, a 50-year-old Black woman\\nDiagnosis: Infectious gastr')
+
+by slot: [('patient.age_contextual', 752), ('patient.age_hyphenated', 696)]
+
+=== hard negatives ===
+category                total  found verbatim  overlaps a PHI span
+duration                 1241            1241                    0
+relative_time            1167            1167                    0
+medication                832             832                    0
+measurement               485             485                    0
+vital_sign                484             484                    0
+time                      466             466                    0
+pain_score                401             401                    0
+caregiver_role            292             292                    0
+eponym                    282             282                    0
+gestational_age           202             202                    0
+gene_variant              177             177                    0
+terminology_code          171             171                    0
+clinical_scale            165             165                    0
+laboratory_code           107             107                    0
+ambiguous_month_word       95              95                    0
+impossible_date            91              91                    0
+device_model               42              42                    0
+
+=== labelled name string reappears UNLABELLED elsewhere in the same note ===
+[]

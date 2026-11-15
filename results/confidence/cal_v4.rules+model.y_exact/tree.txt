@@ -1,0 +1,46 @@
+|--- num__our_score <= 0.969
+|   |--- cat__our_rule_first_name+last_name <= 0.500
+|   |   |--- cat__our_case_title <= 0.500
+|   |   |   |--- cat__our_rule_infrequent_sklearn <= 0.500
+|   |   |   |   |--- num__p2_pdm_other_b9 <= 0.064
+|   |   |   |   |   |--- n=109  confidence=0.000
+|   |   |   |   |--- num__p2_pdm_other_b9 >  0.064
+|   |   |   |   |   |--- n=30  confidence=0.033
+|   |   |   |--- cat__our_rule_infrequent_sklearn >  0.500
+|   |   |   |   |--- n=30  confidence=0.267
+|   |   |--- cat__our_case_title >  0.500
+|   |   |   |--- num__p1_p_cat_mean <= 0.848
+|   |   |   |   |--- n=38  confidence=0.184
+|   |   |   |--- num__p1_p_cat_mean >  0.848
+|   |   |   |   |--- num__p2_nb_entropy_mean <= 0.067
+|   |   |   |   |   |--- n=36  confidence=0.833
+|   |   |   |   |--- num__p2_nb_entropy_mean >  0.067
+|   |   |   |   |   |--- n=35  confidence=0.514
+|   |--- cat__our_rule_first_name+last_name >  0.500
+|   |   |--- num__p2_next_p_same <= 0.000
+|   |   |   |--- n=39  confidence=1.000
+|   |   |--- num__p2_next_p_same >  0.000
+|   |   |   |--- n=30  confidence=0.933
+|--- num__our_score >  0.969
+|   |--- num__p2_next_p_same <= 0.008
+|   |   |--- num__p1_p_o_max <= 0.999
+|   |   |   |--- num__p1_p_o_mean <= 0.586
+|   |   |   |   |--- num__p2_prev_p_same <= 0.003
+|   |   |   |   |   |--- n=5195  confidence=0.990
+|   |   |   |   |--- num__p2_prev_p_same >  0.003
+|   |   |   |   |   |--- n=36  confidence=0.722
+|   |   |   |--- num__p1_p_o_mean >  0.586
+|   |   |   |   |--- num__p1_p_cat_min <= 0.001
+|   |   |   |   |   |--- n=30  confidence=0.400
+|   |   |   |   |--- num__p1_p_cat_min >  0.001
+|   |   |   |   |   |--- n=47  confidence=0.936
+|   |   |--- num__p1_p_o_max >  0.999
+|   |   |   |--- num__p1_len_chars <= 20.500
+|   |   |   |   |--- num__p2_pdm_o_b0 <= 0.000
+|   |   |   |   |   |--- n=30  confidence=0.800
+|   |   |   |   |--- num__p2_pdm_o_b0 >  0.000
+|   |   |   |   |   |--- n=35  confidence=1.000
+|   |   |   |--- num__p1_len_chars >  20.500
+|   |   |   |   |--- n=49  confidence=0.000
+|   |--- num__p2_next_p_same >  0.008
+|   |   |--- n=44  confidence=0.227

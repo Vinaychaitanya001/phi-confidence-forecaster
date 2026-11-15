@@ -1,0 +1,135 @@
+{
+ "hard_negatives": [
+  {
+   "type": "relative_time",
+   "n": 184,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "duration",
+   "n": 176,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "medication",
+   "n": 117,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "time",
+   "n": 86,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "vital_sign",
+   "n": 75,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "measurement",
+   "n": 69,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "pain_score",
+   "n": 56,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "caregiver_role",
+   "n": 47,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "eponym",
+   "n": 41,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "clinical_scale",
+   "n": 26,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "gestational_age",
+   "n": 26,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "terminology_code",
+   "n": 25,
+   "redacted": 6,
+   "mean_confidence": 0.14423900863926226,
+   "flagged_for_review": 6
+  },
+  {
+   "type": "gene_variant",
+   "n": 24,
+   "redacted": 5,
+   "mean_confidence": 0.4442134109709099,
+   "flagged_for_review": 3
+  },
+  {
+   "type": "impossible_date",
+   "n": 22,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "ambiguous_month_word",
+   "n": 17,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "laboratory_code",
+   "n": 11,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "device_model",
+   "n": 6,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  }
+ ],
+ "total": {
+  "n": 1008,
+  "redacted": 11,
+  "flagged": 9
+ },
+ "cost": {
+  "regex_s": 0.017175198412698413,
+  "model_s": 0.34544285714285716,
+  "mc_dropout_s": 4.32,
+  "mc_passes": 10
+ },
+ "shift": {}
+}

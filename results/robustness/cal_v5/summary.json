@@ -1,0 +1,307 @@
+{
+ "hard_negatives": [
+  {
+   "type": "duration",
+   "n": 177,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "relative_time",
+   "n": 164,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "medication",
+   "n": 129,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "vital_sign",
+   "n": 77,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "measurement",
+   "n": 73,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "pain_score",
+   "n": 70,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "time",
+   "n": 53,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "eponym",
+   "n": 50,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "caregiver_role",
+   "n": 47,
+   "redacted": 1,
+   "mean_confidence": 0.7366670472004093,
+   "flagged_for_review": 1
+  },
+  {
+   "type": "gestational_age",
+   "n": 36,
+   "redacted": 7,
+   "mean_confidence": 0.19482577845818758,
+   "flagged_for_review": 6
+  },
+  {
+   "type": "gene_variant",
+   "n": 25,
+   "redacted": 1,
+   "mean_confidence": 0.9116686118144516,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "clinical_scale",
+   "n": 22,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "terminology_code",
+   "n": 22,
+   "redacted": 6,
+   "mean_confidence": 0.16619364180002802,
+   "flagged_for_review": 6
+  },
+  {
+   "type": "impossible_date",
+   "n": 18,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "ambiguous_month_word",
+   "n": 16,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "laboratory_code",
+   "n": 16,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  },
+  {
+   "type": "device_model",
+   "n": 5,
+   "redacted": 0,
+   "mean_confidence": null,
+   "flagged_for_review": 0
+  }
+ ],
+ "total": {
+  "n": 1000,
+  "redacted": 15,
+  "flagged": 13
+ },
+ "cost": {
+  "regex_s": 0.0087275,
+  "model_s": 0.4043875,
+  "mc_dropout_s": 4.55,
+  "mc_passes": 10
+ },
+ "shift": {
+  "cal_v5.rules+model.y_cat_ok": {
+   "gbdt:p1": {
+    "n": 2911,
+    "errors": 90,
+    "ece": 0.011678086426134306,
+    "brier": 0.02221925259266854,
+    "nll": 0.08817665408078905,
+    "auroc_error": 0.9175233368781757,
+    "auprc_error": 0.4283162860844305,
+    "capture@5%": 0.5666666666666667,
+    "capture@10%": 0.7444444444444445,
+    "capture@20%": 0.8777777777777778,
+    "precision_before": 0.9690827894194435,
+    "precision_after": 0.9713990351481737,
+    "spans_dropped": 9,
+    "errors_removed": 7,
+    "true_spans_lost": 2
+   },
+   "gbdt:all": {
+    "n": 2911,
+    "errors": 90,
+    "ece": 0.010883088881103311,
+    "brier": 0.011249790464850792,
+    "nll": 0.05114025208585185,
+    "auroc_error": 0.9836976643428257,
+    "auprc_error": 0.8384399751578171,
+    "capture@5%": 0.8777777777777778,
+    "capture@10%": 0.9222222222222223,
+    "capture@20%": 0.9777777777777777,
+    "precision_before": 0.9690827894194435,
+    "precision_after": 0.9877365101611773,
+    "spans_dropped": 57,
+    "errors_removed": 55,
+    "true_spans_lost": 2
+   },
+   "raw_softmax": {
+    "n": 2911,
+    "errors": 90,
+    "ece": 0.1777560542493677,
+    "brier": 0.13884985487983045,
+    "nll": 0.788298249028317,
+    "auroc_error": 0.6732699200441136,
+    "auprc_error": 0.046364432844661393,
+    "capture@5%": 0.1111111111111111,
+    "capture@10%": 0.14444444444444443,
+    "capture@20%": 0.2111111111111111,
+    "precision_before": 0.9690827894194435,
+    "precision_after": 0.9690615331729117,
+    "spans_dropped": 2,
+    "errors_removed": 0,
+    "true_spans_lost": 2
+   },
+   "_setup": {
+    "train": "lang=en-GB (2889 spans)",
+    "test": "lang=en-US (2911 spans)"
+   }
+  },
+  "cal_v5.rules+model.y_exact": {
+   "gbdt:p1": {
+    "n": 2911,
+    "errors": 175,
+    "ece": 0.015422064888574418,
+    "brier": 0.032772316198138016,
+    "nll": 0.12511707818611092,
+    "auroc_error": 0.9266259398496242,
+    "auprc_error": 0.6617521869329787,
+    "capture@5%": 0.5657142857142857,
+    "capture@10%": 0.7257142857142858,
+    "capture@20%": 0.84,
+    "precision_before": 0.9398832016489179,
+    "precision_after": 0.9532775453277545,
+    "spans_dropped": 43,
+    "errors_removed": 41,
+    "true_spans_lost": 2
+   },
+   "gbdt:all": {
+    "n": 2911,
+    "errors": 175,
+    "ece": 0.013716772809083552,
+    "brier": 0.016786013935153218,
+    "nll": 0.061158664655551365,
+    "auroc_error": 0.9899436090225564,
+    "auprc_error": 0.9152248934157148,
+    "capture@5%": 0.7314285714285714,
+    "capture@10%": 0.96,
+    "capture@20%": 0.9942857142857143,
+    "precision_before": 0.9398832016489179,
+    "precision_after": 0.9757316202712348,
+    "spans_dropped": 109,
+    "errors_removed": 107,
+    "true_spans_lost": 2
+   },
+   "raw_softmax": {
+    "n": 2911,
+    "errors": 175,
+    "ece": 0.154052859470941,
+    "brier": 0.1435445087617867,
+    "nll": 0.7986549456436371,
+    "auroc_error": 0.7192324561403509,
+    "auprc_error": 0.10163457424926242,
+    "capture@5%": 0.08,
+    "capture@10%": 0.19428571428571428,
+    "capture@20%": 0.3142857142857143,
+    "precision_before": 0.9398832016489179,
+    "precision_after": 0.9398418700584393,
+    "spans_dropped": 2,
+    "errors_removed": 0,
+    "true_spans_lost": 2
+   },
+   "_setup": {
+    "train": "lang=en-GB (2889 spans)",
+    "test": "lang=en-US (2911 spans)"
+   }
+  },
+  "cal_v5.rules+model.y_is_phi": {
+   "gbdt:p1": {
+    "n": 2911,
+    "errors": 38,
+    "ece": 0.005771074686187288,
+    "brier": 0.008220135503031696,
+    "nll": 0.031001909986991073,
+    "auroc_error": 0.9743345485188782,
+    "auprc_error": 0.5593143763459468,
+    "capture@5%": 0.9210526315789473,
+    "capture@10%": 0.9736842105263158,
+    "capture@20%": 0.9736842105263158,
+    "precision_before": 0.986946066643765,
+    "precision_after": 0.9906832298136646,
+    "spans_dropped": 13,
+    "errors_removed": 11,
+    "true_spans_lost": 2
+   },
+   "gbdt:all": {
+    "n": 2911,
+    "errors": 38,
+    "ece": 0.0047255987434874774,
+    "brier": 0.004376895575683313,
+    "nll": 0.0208534489819921,
+    "auroc_error": 0.9870298789088977,
+    "auprc_error": 0.840007820000392,
+    "capture@5%": 0.9473684210526315,
+    "capture@10%": 0.9473684210526315,
+    "capture@20%": 0.9736842105263158,
+    "precision_before": 0.986946066643765,
+    "precision_after": 0.9951473136915078,
+    "spans_dropped": 26,
+    "errors_removed": 24,
+    "true_spans_lost": 2
+   },
+   "raw_softmax": {
+    "n": 2911,
+    "errors": 38,
+    "ece": 0.19520278063591726,
+    "brier": 0.128146621653032,
+    "nll": 0.7554777322825407,
+    "auroc_error": 0.7645730668474179,
+    "auprc_error": 0.03168777235230967,
+    "capture@5%": 0.21052631578947367,
+    "capture@10%": 0.2894736842105263,
+    "capture@20%": 0.34210526315789475,
+    "precision_before": 0.986946066643765,
+    "precision_after": 0.9869370917841183,
+    "spans_dropped": 2,
+    "errors_removed": 0,
+    "true_spans_lost": 2
+   },
+   "_setup": {
+    "train": "lang=en-GB (2889 spans)",
+    "test": "lang=en-US (2911 spans)"
+   }
+  }
+ }
+}

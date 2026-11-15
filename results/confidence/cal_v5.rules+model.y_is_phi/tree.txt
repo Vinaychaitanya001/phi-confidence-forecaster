@@ -1,0 +1,28 @@
+|--- num__our_score <= 0.908
+|   |--- num__p1_mc_o_mean <= 0.192
+|   |   |--- num__p1_p_o_mean <= 0.047
+|   |   |   |--- n=151  confidence=1.000
+|   |   |--- num__p1_p_o_mean >  0.047
+|   |   |   |--- n=30  confidence=0.867
+|   |--- num__p1_mc_o_mean >  0.192
+|   |   |--- num__p2_entropy_max <= 1.233
+|   |   |   |--- n=41  confidence=0.220
+|   |   |--- num__p2_entropy_max >  1.233
+|   |   |   |--- n=30  confidence=0.633
+|--- num__our_score >  0.908
+|   |--- num__p1_mc_o_mean <= 0.806
+|   |   |--- num__our_score <= 0.969
+|   |   |   |--- num__p2_pdm_same_b0 <= 0.000
+|   |   |   |   |--- n=30  confidence=0.800
+|   |   |   |--- num__p2_pdm_same_b0 >  0.000
+|   |   |   |   |--- n=50  confidence=1.000
+|   |   |--- num__our_score >  0.969
+|   |   |   |--- num__p1_mc_o_mean <= 0.398
+|   |   |   |   |--- n=5024  confidence=1.000
+|   |   |   |--- num__p1_mc_o_mean >  0.398
+|   |   |   |   |--- num__p1_p_cat_geo <= 0.005
+|   |   |   |   |   |--- n=32  confidence=0.781
+|   |   |   |   |--- num__p1_p_cat_geo >  0.005
+|   |   |   |   |   |--- n=379  confidence=0.989
+|   |--- num__p1_mc_o_mean >  0.806
+|   |   |--- n=33  confidence=0.515

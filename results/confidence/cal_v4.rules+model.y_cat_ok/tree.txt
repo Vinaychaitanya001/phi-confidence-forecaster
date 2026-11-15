@@ -1,0 +1,34 @@
+|--- cat__our_category_Other <= 0.500
+|   |--- num__our_score <= 0.981
+|   |   |--- cat__our_category_Name <= 0.500
+|   |   |   |--- num__our_rel_pos <= 0.103
+|   |   |   |   |--- n=34  confidence=0.294
+|   |   |   |--- num__our_rel_pos >  0.103
+|   |   |   |   |--- num__p2_pdm_same_b0 <= 0.000
+|   |   |   |   |   |--- n=48  confidence=0.792
+|   |   |   |   |--- num__p2_pdm_same_b0 >  0.000
+|   |   |   |   |   |--- n=30  confidence=0.400
+|   |   |--- cat__our_category_Name >  0.500
+|   |   |   |--- cat__our_rule_first_name <= 0.500
+|   |   |   |   |--- num__p2_pdm_o_b9 <= 0.405
+|   |   |   |   |   |--- n=110  confidence=0.982
+|   |   |   |   |--- num__p2_pdm_o_b9 >  0.405
+|   |   |   |   |   |--- n=35  confidence=0.829
+|   |   |   |--- cat__our_rule_first_name >  0.500
+|   |   |   |   |--- n=30  confidence=0.567
+|   |--- num__our_score >  0.981
+|   |   |--- num__p1_p_o_mean <= 0.772
+|   |   |   |--- num__p2_prev_p_same <= 0.001
+|   |   |   |   |--- num__p1_p_cat_geo <= 0.016
+|   |   |   |   |   |--- n=463  confidence=0.972
+|   |   |   |   |--- num__p1_p_cat_geo >  0.016
+|   |   |   |   |   |--- n=4849  confidence=0.999
+|   |   |   |--- num__p2_prev_p_same >  0.001
+|   |   |   |   |--- num__p2_top_gap_min <= 0.975
+|   |   |   |   |   |--- n=59  confidence=1.000
+|   |   |   |   |--- num__p2_top_gap_min >  0.975
+|   |   |   |   |   |--- n=30  confidence=0.800
+|   |   |--- num__p1_p_o_mean >  0.772
+|   |   |   |--- n=39  confidence=0.590
+|--- cat__our_category_Other >  0.500
+|   |--- n=86  confidence=0.000

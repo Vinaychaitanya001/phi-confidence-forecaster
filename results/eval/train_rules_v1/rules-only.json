@@ -1,0 +1,396 @@
+{
+ "char": {
+  "phi_recall": 0.86914803375948,
+  "phi_recall_ci": [
+   0.864736048090067,
+   0.8734784995209183
+  ],
+  "nonphi_redaction": 0.004617081224337031,
+  "nonphi_redaction_ci": [
+   0.0043957437566477155,
+   0.004888476064404049
+  ]
+ },
+ "char_by_lang": {
+  "en-GB": {
+   "notes": 2346,
+   "phi_recall": 0.8696355325184172,
+   "nonphi_redaction": 0.004003618808569114
+  },
+  "en-US": {
+   "notes": 2346,
+   "phi_recall": 0.8686732681138178,
+   "nonphi_redaction": 0.0052382979455294415
+  }
+ },
+ "char_by_doc_type": {
+  "clinic_note": {
+   "notes": 782,
+   "phi_recall": 0.9375778004671524,
+   "nonphi_redaction": 0.004604982149045397
+  },
+  "discharge_summary": {
+   "notes": 782,
+   "phi_recall": 0.8562020608971875,
+   "nonphi_redaction": 0.003480850640976251
+  },
+  "emergency_note": {
+   "notes": 782,
+   "phi_recall": 0.8611932081594807,
+   "nonphi_redaction": 0.002145795584385018
+  },
+  "laboratory_report": {
+   "notes": 782,
+   "phi_recall": 0.9469956748746403,
+   "nonphi_redaction": 0.01298835989715369
+  },
+  "nursing_note": {
+   "notes": 782,
+   "phi_recall": 0.8725725678582081,
+   "nonphi_redaction": 0.0026070548684524937
+  },
+  "referral_letter": {
+   "notes": 782,
+   "phi_recall": 0.7522023463322599,
+   "nonphi_redaction": 0.0029075021472048995
+  }
+ },
+ "gold_by_label": {
+  "Name:Patient": {
+   "n": 5251,
+   "full": 0.8642163397448105,
+   "partial": 0.0005713197486193106,
+   "missed": 0.1352123405065702,
+   "found_any": 0.8647876594934298,
+   "category_correct": 0.8647876594934298,
+   "exact": 0.8558369834317273
+  },
+  "Profession": {
+   "n": 667,
+   "full": 0.9850074962518741,
+   "partial": 0.0,
+   "missed": 0.014992503748125937,
+   "found_any": 0.9850074962518741,
+   "category_correct": 0.9850074962518741,
+   "exact": 0.9850074962518741
+  },
+  "Address_Location:Patient": {
+   "n": 1694,
+   "full": 0.974025974025974,
+   "partial": 0.01829988193624557,
+   "missed": 0.007674144037780401,
+   "found_any": 0.9923258559622196,
+   "category_correct": 0.9923258559622196,
+   "exact": 0.9297520661157025
+  },
+  "Contactdetails": {
+   "n": 1478,
+   "full": 0.9945872801082544,
+   "partial": 0.005412719891745603,
+   "missed": 0.0,
+   "found_any": 1.0,
+   "category_correct": 0.9918809201623816,
+   "exact": 0.986468200270636
+  },
+  "Organization:Other": {
+   "n": 512,
+   "full": 0.908203125,
+   "partial": 0.0,
+   "missed": 0.091796875,
+   "found_any": 0.908203125,
+   "category_correct": 0.90625,
+   "exact": 0.88671875
+  },
+  "ID:Patient": {
+   "n": 4401,
+   "full": 0.9765962281299705,
+   "partial": 0.018404907975460124,
+   "missed": 0.004998863894569416,
+   "found_any": 0.9950011361054306,
+   "category_correct": 0.9904567143830948,
+   "exact": 0.9720518064076347
+  },
+  "Organization:Healthcare": {
+   "n": 2065,
+   "full": 0.8808716707021792,
+   "partial": 0.08765133171912833,
+   "missed": 0.031476997578692496,
+   "found_any": 0.9685230024213075,
+   "category_correct": 0.9641646489104116,
+   "exact": 0.8397094430992736
+  },
+  "Date": {
+   "n": 2400,
+   "full": 1.0,
+   "partial": 0.0,
+   "missed": 0.0,
+   "found_any": 1.0,
+   "category_correct": 1.0,
+   "exact": 1.0
+  },
+  "Name:Other": {
+   "n": 2041,
+   "full": 0.20431161195492406,
+   "partial": 0.0014698677119059284,
+   "missed": 0.79421852033317,
+   "found_any": 0.20578147966683,
+   "category_correct": 0.2048015678588927,
+   "exact": 0.18716315531602157
+  },
+  "Address_Location:Other": {
+   "n": 311,
+   "full": 0.08360128617363344,
+   "partial": 0.0,
+   "missed": 0.9163987138263665,
+   "found_any": 0.08360128617363344,
+   "category_correct": 0.08038585209003216,
+   "exact": 0.0
+  },
+  "Age_Birthdate": {
+   "n": 2015,
+   "full": 0.9861042183622829,
+   "partial": 0.005955334987593052,
+   "missed": 0.00794044665012407,
+   "found_any": 0.9920595533498759,
+   "category_correct": 0.9905707196029777,
+   "exact": 0.9846153846153847
+  },
+  "Address_Location:Caregiver": {
+   "n": 231,
+   "full": 0.6363636363636364,
+   "partial": 0.0,
+   "missed": 0.36363636363636365,
+   "found_any": 0.6363636363636364,
+   "category_correct": 0.5454545454545454,
+   "exact": 0.09956709956709957
+  },
+  "Name:Caregiver": {
+   "n": 3031,
+   "full": 0.6393929396238865,
+   "partial": 0.0,
+   "missed": 0.3606070603761135,
+   "found_any": 0.6393929396238865,
+   "category_correct": 0.6308149125701089,
+   "exact": 0.5922137908281095
+  },
+  "ID:Caregiver": {
+   "n": 944,
+   "full": 0.7722457627118644,
+   "partial": 0.0,
+   "missed": 0.2277542372881356,
+   "found_any": 0.7722457627118644,
+   "category_correct": 0.7552966101694916,
+   "exact": 0.75
+  }
+ },
+ "gold_all": {
+  "n": 27041,
+  "full": 0.833586036019378,
+  "found_any": 0.8453829370215599,
+  "missed": 0.15461706297844013,
+  "category_correct": 0.8412780592433712,
+  "exact": 0.8114344883695129
+ },
+ "pred_all": {
+  "n": 24647,
+  "overlap_precision": 0.9257110398831501,
+  "category_precision": 0.9233578123098146,
+  "exact_precision": 0.8902503347263359,
+  "false_alarms": 1831
+ },
+ "pred_by_source": {
+  "rules": {
+   "n": 24647,
+   "overlap_precision": 0.9257110398831501,
+   "category_precision": 0.9233578123098146,
+   "exact_precision": 0.8902503347263359,
+   "false_alarms": 1831
+  }
+ },
+ "pred_by_category": {
+  "Address_Location": {
+   "n": 1839,
+   "overlap_precision": 1.0,
+   "category_precision": 0.9994562262098967,
+   "exact_precision": 0.8689505165851006,
+   "false_alarms": 0
+  },
+  "Age_Birthdate": {
+   "n": 2073,
+   "overlap_precision": 0.9628557645923782,
+   "category_precision": 0.9628557645923782,
+   "exact_precision": 0.9570670525808008,
+   "false_alarms": 77
+  },
+  "Contactdetails": {
+   "n": 1506,
+   "overlap_precision": 0.9926958831341302,
+   "category_precision": 0.9734395750332006,
+   "exact_precision": 0.9681274900398407,
+   "false_alarms": 11
+  },
+  "Date": {
+   "n": 2437,
+   "overlap_precision": 0.9856380796060731,
+   "category_precision": 0.9848173984407058,
+   "exact_precision": 0.9848173984407058,
+   "false_alarms": 35
+  },
+  "ID": {
+   "n": 5129,
+   "overlap_precision": 0.9890816923376876,
+   "category_precision": 0.9888867225580035,
+   "exact_precision": 0.9721193215051667,
+   "false_alarms": 56
+  },
+  "Name": {
+   "n": 7656,
+   "overlap_precision": 0.8986415882967607,
+   "category_precision": 0.897466039707419,
+   "exact_precision": 0.8713427377220481,
+   "false_alarms": 776
+  },
+  "Organization": {
+   "n": 3331,
+   "overlap_precision": 0.74241969378565,
+   "category_precision": 0.7379165415791054,
+   "exact_precision": 0.6568598018613029,
+   "false_alarms": 858
+  },
+  "Profession": {
+   "n": 676,
+   "overlap_precision": 0.9733727810650887,
+   "category_precision": 0.9718934911242604,
+   "exact_precision": 0.9718934911242604,
+   "false_alarms": 18
+  }
+ },
+ "strict_category": {
+  "tp": 21942,
+  "fp": 2705,
+  "fn": 5099,
+  "precision": 0.8902503347263359,
+  "recall": 0.8114344883695129,
+  "f1": 0.8490171800030955
+ },
+ "hard_negatives": {
+  "duration": {
+   "n": 888,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "relative_time": {
+   "n": 819,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "medication": {
+   "n": 586,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "measurement": {
+   "n": 343,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "vital_sign": {
+   "n": 332,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "time": {
+   "n": 327,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "pain_score": {
+   "n": 275,
+   "redacted": 3,
+   "rate": 0.01090909090909091,
+   "as": {
+    "Date": 3
+   }
+  },
+  "caregiver_role": {
+   "n": 198,
+   "redacted": 1,
+   "rate": 0.005050505050505051,
+   "as": {
+    "Name": 1
+   }
+  },
+  "eponym": {
+   "n": 191,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "gestational_age": {
+   "n": 140,
+   "redacted": 4,
+   "rate": 0.02857142857142857,
+   "as": {
+    "Age_Birthdate": 4
+   }
+  },
+  "gene_variant": {
+   "n": 128,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "terminology_code": {
+   "n": 124,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "clinical_scale": {
+   "n": 117,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "laboratory_code": {
+   "n": 80,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "ambiguous_month_word": {
+   "n": 62,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "impossible_date": {
+   "n": 51,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  },
+  "device_model": {
+   "n": 31,
+   "redacted": 0,
+   "rate": 0.0,
+   "as": {}
+  }
+ },
+ "hard_negatives_all": {
+  "n": 4692,
+  "redacted": 8,
+  "rate": 0.0017050298380221654
+ },
+ "speed": {
+  "notes": 4692,
+  "mean_regex_s": 0.012442964906028968,
+  "mean_model_s": 0.0
+ }
+}

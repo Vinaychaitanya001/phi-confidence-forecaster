@@ -1,0 +1,198 @@
+{
+ "fractions": {
+  "cal": 0.15,
+  "test": 0.15,
+  "train": 0.7
+ },
+ "seed": 20261115,
+ "source": "../meddeid_english_synthetic/data/train.jsonl",
+ "splits": {
+  "cal": {
+   "doc_type": {
+    "clinic_note": 168,
+    "discharge_summary": 168,
+    "emergency_note": 166,
+    "laboratory_report": 166,
+    "nursing_note": 166,
+    "referral_letter": 166
+   },
+   "hard_negatives": {
+    "ambiguous_month_word": 16,
+    "caregiver_role": 47,
+    "clinical_scale": 22,
+    "device_model": 5,
+    "duration": 177,
+    "eponym": 50,
+    "gene_variant": 25,
+    "gestational_age": 36,
+    "impossible_date": 18,
+    "laboratory_code": 16,
+    "measurement": 73,
+    "medication": 129,
+    "pain_score": 70,
+    "relative_time": 164,
+    "terminology_code": 22,
+    "time": 53,
+    "vital_sign": 77
+   },
+   "labels": {
+    "Address_Location:Caregiver": 50,
+    "Address_Location:Other": 79,
+    "Address_Location:Patient": 363,
+    "Age_Birthdate": 470,
+    "Contactdetails": 317,
+    "Date": 523,
+    "ID:Caregiver": 167,
+    "ID:Patient": 921,
+    "Name:Caregiver": 646,
+    "Name:Other": 448,
+    "Name:Patient": 1110,
+    "Organization:Healthcare": 435,
+    "Organization:Other": 98,
+    "Profession": 123
+   },
+   "lang": {
+    "en-GB": 500,
+    "en-US": 500
+   },
+   "notes": 1000,
+   "spans": 5750,
+   "style": {
+    "compact-clinician": 259,
+    "handover-note": 81,
+    "longitudinal-summary": 31,
+    "minimal-ehr": 158,
+    "narrative-scribe": 114,
+    "patient-facing-letter": 62,
+    "specialist-report": 104,
+    "structured-record": 191
+   }
+  },
+  "test": {
+   "doc_type": {
+    "clinic_note": 168,
+    "discharge_summary": 168,
+    "emergency_note": 168,
+    "laboratory_report": 168,
+    "nursing_note": 168,
+    "referral_letter": 168
+   },
+   "hard_negatives": {
+    "ambiguous_month_word": 17,
+    "caregiver_role": 47,
+    "clinical_scale": 26,
+    "device_model": 6,
+    "duration": 176,
+    "eponym": 41,
+    "gene_variant": 24,
+    "gestational_age": 26,
+    "impossible_date": 22,
+    "laboratory_code": 11,
+    "measurement": 69,
+    "medication": 117,
+    "pain_score": 56,
+    "relative_time": 184,
+    "terminology_code": 25,
+    "time": 86,
+    "vital_sign": 75
+   },
+   "labels": {
+    "Address_Location:Caregiver": 47,
+    "Address_Location:Other": 60,
+    "Address_Location:Patient": 373,
+    "Age_Birthdate": 444,
+    "Contactdetails": 347,
+    "Date": 518,
+    "ID:Caregiver": 187,
+    "ID:Patient": 919,
+    "Name:Caregiver": 636,
+    "Name:Other": 442,
+    "Name:Patient": 1125,
+    "Organization:Healthcare": 452,
+    "Organization:Other": 105,
+    "Profession": 135
+   },
+   "lang": {
+    "en-GB": 504,
+    "en-US": 504
+   },
+   "notes": 1008,
+   "spans": 5790,
+   "style": {
+    "compact-clinician": 276,
+    "handover-note": 66,
+    "longitudinal-summary": 22,
+    "minimal-ehr": 162,
+    "narrative-scribe": 113,
+    "patient-facing-letter": 54,
+    "specialist-report": 112,
+    "structured-record": 203
+   }
+  },
+  "train": {
+   "doc_type": {
+    "clinic_note": 782,
+    "discharge_summary": 782,
+    "emergency_note": 782,
+    "laboratory_report": 782,
+    "nursing_note": 782,
+    "referral_letter": 782
+   },
+   "hard_negatives": {
+    "ambiguous_month_word": 62,
+    "caregiver_role": 198,
+    "clinical_scale": 117,
+    "device_model": 31,
+    "duration": 888,
+    "eponym": 191,
+    "gene_variant": 128,
+    "gestational_age": 140,
+    "impossible_date": 51,
+    "laboratory_code": 80,
+    "measurement": 343,
+    "medication": 586,
+    "pain_score": 275,
+    "relative_time": 819,
+    "terminology_code": 124,
+    "time": 327,
+    "vital_sign": 332
+   },
+   "labels": {
+    "Address_Location:Caregiver": 231,
+    "Address_Location:Other": 311,
+    "Address_Location:Patient": 1694,
+    "Age_Birthdate": 2015,
+    "Contactdetails": 1478,
+    "Date": 2400,
+    "ID:Caregiver": 944,
+    "ID:Patient": 4401,
+    "Name:Caregiver": 3031,
+    "Name:Other": 2041,
+    "Name:Patient": 5251,
+    "Organization:Healthcare": 2065,
+    "Organization:Other": 512,
+    "Profession": 667
+   },
+   "lang": {
+    "en-GB": 2346,
+    "en-US": 2346
+   },
+   "notes": 4692,
+   "spans": 27041,
+   "style": {
+    "compact-clinician": 1155,
+    "handover-note": 351,
+    "longitudinal-summary": 145,
+    "minimal-ehr": 764,
+    "narrative-scribe": 467,
+    "patient-facing-letter": 287,
+    "specialist-report": 550,
+    "structured-record": 973
+   }
+  }
+ },
+ "stratified_by": [
+  "lang",
+  "doc_type"
+ ]
+}

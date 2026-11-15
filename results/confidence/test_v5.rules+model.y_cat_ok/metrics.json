@@ -1,0 +1,205 @@
+{
+ "features": "results/features/test_v5.rules+model.csv",
+ "target": "y_cat_ok",
+ "applied_model": "results/confidence/cal_v5.rules+model.y_cat_ok/model.joblib",
+ "n_spans": 5838,
+ "n_errors": 179,
+ "has_mc_dropout": true,
+ "metrics": {
+  "raw_softmax": {
+   "n": 5838,
+   "errors": 179,
+   "ece": 0.1832678481589933,
+   "brier": 0.14318562084169587,
+   "nll": 0.8242727728035728,
+   "auroc_error": 0.6727109928220336,
+   "auprc_error": 0.044389592340045136,
+   "capture@5%": 0.0893854748603352,
+   "capture@10%": 0.1005586592178771,
+   "capture@20%": 0.16201117318435754,
+   "precision_before": 0.9693388146625557,
+   "precision_after": 0.9693125321446939,
+   "spans_dropped": 5,
+   "errors_removed": 0,
+   "true_spans_lost": 5,
+   "ece_ci": [
+    0.17483333998898734,
+    0.19180550641650004
+   ],
+   "auroc_error_ci": [
+    0.6408210332402863,
+    0.7021580931627417
+   ]
+  },
+  "raw_score": {
+   "n": 5838,
+   "errors": 179,
+   "ece": 0.017830727800365237,
+   "brier": 0.022214367990195702,
+   "nll": 0.10047071332852815,
+   "auroc_error": 0.9348617567704977,
+   "auprc_error": 0.43549640686869207,
+   "capture@5%": 0.7541899441340782,
+   "capture@10%": 0.9106145251396648,
+   "capture@20%": 0.9217877094972067,
+   "precision_before": 0.9693388146625557,
+   "precision_after": 0.9701441317776253,
+   "spans_dropped": 10,
+   "errors_removed": 5,
+   "true_spans_lost": 5,
+   "ece_ci": [
+    0.014713332058406272,
+    0.022405256002874768
+   ],
+   "auroc_error_ci": [
+    0.9096221700928042,
+    0.9550740693641927
+   ]
+  },
+  "gbdt:all": {
+   "n": 5838,
+   "errors": 179,
+   "ece": 0.004460285553874163,
+   "brier": 0.005951268573603701,
+   "nll": 0.021106738716261692,
+   "auroc_error": 0.9970383854857197,
+   "auprc_error": 0.9511631140399905,
+   "capture@5%": 0.9776536312849162,
+   "capture@10%": 0.9888268156424581,
+   "capture@20%": 1.0,
+   "precision_before": 0.9693388146625557,
+   "precision_after": 0.9907131592780796,
+   "spans_dropped": 131,
+   "errors_removed": 126,
+   "true_spans_lost": 5,
+   "ece_ci": [
+    0.0033471905838506205,
+    0.0070370780435700655
+   ],
+   "auroc_error_ci": [
+    0.9940561787932796,
+    0.9989452208540033
+   ]
+  }
+ },
+ "by_group_gbdt_all": {
+  "category": {
+   "Address_Location": {
+    "n": 486,
+    "errors": 23,
+    "ece": 0.02067462535848378,
+    "ece_raw": 0.18792761475951586
+   },
+   "Age_Birthdate": {
+    "n": 441,
+    "errors": 1,
+    "ece": 0.0013458192246600042,
+    "ece_raw": 0.5380360637865451
+   },
+   "Contactdetails": {
+    "n": 345,
+    "errors": 3,
+    "ece": 0.008066075176313574,
+    "ece_raw": 0.012248418987661207
+   },
+   "Date": {
+    "n": 519,
+    "errors": 1,
+    "ece": 0.00035822026234140275,
+    "ece_raw": 0.0023276270699180016
+   },
+   "Name": {
+    "n": 2160,
+    "errors": 33,
+    "ece": 0.006747564851479242,
+    "ece_raw": 0.14627712743332033
+   },
+   "Organization": {
+    "n": 573,
+    "errors": 23,
+    "ece": 0.017732903282571134,
+    "ece_raw": 0.34114935355529885
+   }
+  },
+  "our_rule_family": {
+   "format": {
+    "n": 1224,
+    "errors": 8,
+    "ece": 0.004313899577445044,
+    "ece_raw": 0.15004281751882606
+   },
+   "header": {
+    "n": 3433,
+    "errors": 9,
+    "ece": 0.000994296498679165,
+    "ece_raw": 0.2581998337872181
+   },
+   "narrative": {
+    "n": 420,
+    "errors": 2,
+    "ece": 0.0053973122036618405,
+    "ece_raw": 0.16408792583942636
+   },
+   "other": {
+    "n": 761,
+    "errors": 160,
+    "ece": 0.026740897686925523,
+    "ece_raw": 0.12457075609327461
+   }
+  },
+  "lang": {
+   "en-GB": {
+    "n": 2934,
+    "errors": 93,
+    "ece": 0.004311896593142124,
+    "ece_raw": 0.18799860958815057
+   },
+   "en-US": {
+    "n": 2904,
+    "errors": 86,
+    "ece": 0.007041458489951585,
+    "ece_raw": 0.17848826068201418
+   }
+  },
+  "doc_type": {
+   "clinic_note": {
+    "n": 961,
+    "errors": 14,
+    "ece": 0.0032164027591282144,
+    "ece_raw": 0.24695885887114627
+   },
+   "discharge_summary": {
+    "n": 1003,
+    "errors": 35,
+    "ece": 0.007071931626061719,
+    "ece_raw": 0.15245485224306962
+   },
+   "emergency_note": {
+    "n": 975,
+    "errors": 47,
+    "ece": 0.009679687385825447,
+    "ece_raw": 0.15697399308782062
+   },
+   "laboratory_report": {
+    "n": 966,
+    "errors": 28,
+    "ece": 0.003149137086875829,
+    "ece_raw": 0.14900339770424798
+   },
+   "nursing_note": {
+    "n": 913,
+    "errors": 24,
+    "ece": 0.005184716002100375,
+    "ece_raw": 0.1843922660230918
+   },
+   "referral_letter": {
+    "n": 1020,
+    "errors": 31,
+    "ece": 0.008782655223694239,
+    "ece_raw": 0.2198238187938235
+   }
+  }
+ },
+ "permutation_importance_top": [],
+ "shift": {}
+}

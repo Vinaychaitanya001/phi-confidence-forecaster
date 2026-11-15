@@ -1,0 +1,74 @@
+{
+ "split": "test",
+ "tag": "_v5",
+ "tau": 0.02,
+ "n_candidates": 877,
+ "n_positive": 99,
+ "gold_missed_spans": 114,
+ "gold_missed_with_candidate": 98,
+ "has_mc_dropout": true,
+ "span_level": {
+  "raw_mass": {
+   "auroc": 0.8581444262678196,
+   "auprc": 0.37543418038105675,
+   "ece": 0.09800450641453741,
+   "missed_found@5%cands": 0.2222222222222222,
+   "missed_found@10%cands": 0.40404040404040403,
+   "missed_found@20%cands": 0.7070707070707071,
+   "add@0.5": {
+    "added": 129,
+    "true_missed": 53,
+    "precision": 0.4108527131782946,
+    "missed_gold_recovered_frac": 0.5353535353535354
+   },
+   "add@0.3": {
+    "added": 185,
+    "true_missed": 71,
+    "precision": 0.3837837837837838,
+    "missed_gold_recovered_frac": 0.7171717171717171
+   },
+   "add@0.2": {
+    "added": 225,
+    "true_missed": 76,
+    "precision": 0.3377777777777778,
+    "missed_gold_recovered_frac": 0.7676767676767676
+   }
+  },
+  "all": {
+   "auroc": 0.9897302069538574,
+   "auprc": 0.9449680336239797,
+   "ece": 0.020743192124856254,
+   "missed_found@5%cands": 0.4444444444444444,
+   "missed_found@10%cands": 0.8282828282828283,
+   "missed_found@20%cands": 0.98989898989899,
+   "add@0.5": {
+    "added": 80,
+    "true_missed": 76,
+    "precision": 0.95,
+    "missed_gold_recovered_frac": 0.7676767676767676
+   },
+   "add@0.3": {
+    "added": 90,
+    "true_missed": 82,
+    "precision": 0.9111111111111111,
+    "missed_gold_recovered_frac": 0.8282828282828283
+   },
+   "add@0.2": {
+    "added": 98,
+    "true_missed": 86,
+    "precision": 0.8775510204081632,
+    "missed_gold_recovered_frac": 0.8686868686868687
+   }
+  }
+ },
+ "note_level": {
+  "notes": 1008,
+  "notes_with_miss": 98,
+  "auroc_p_any": 0.963674590715407,
+  "auroc_baseline_ncands": 0.7703016371383719,
+  "ece_p_any": 0.02580948384544679,
+  "missed_spans_in_top5%notes": 0.5263157894736842,
+  "missed_spans_in_top10%notes": 0.8421052631578947,
+  "missed_spans_in_top20%notes": 0.9298245614035088
+ }
+}

@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+# corpus and anything derived from its text (re-create with `python -m deidconf.prepare`)
+meddeid_english_synthetic/
+data/meddeid/*.jsonl
+# papers (links in README)
+*.pdf
+# large regenerable caches
+results/detect/
+results/mcdropout/
+results/features/
+results/eval/*/*.predictions.jsonl
+results/logs/
+results/**/oof_predictions.csv
+results/**/candidates.csv
+Deidentification/.git

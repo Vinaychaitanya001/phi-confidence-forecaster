@@ -1,0 +1,72 @@
+records: train.jsonl 6700 | source/development.jsonl 6700
+train fields: Counter({'document_id': 6700, 'text': 6700, 'spans': 6700, 'annotated': 6700, 'metadata_json': 6700})
+dev fields: Counter({'document_id': 6700, 'text': 6700, 'spans': 6700, 'metadata': 6700, 'annotated': 6700})
+train == development? ids True, text True, spans True, metadata True
+annotated flag: Counter({True: 6700})
+unique document_ids: 6700 | unique texts: 6700
+
+metadata top-level keys: [('lang', 6700), ('document_creation_date', 6700), ('patient', 6700), ('caregivers', 6700), ('generation_method', 6700), ('generation_profile', 6700), ('renderer', 6700), ('model', 6700), ('document_type', 6700), ('synthetic', 6700), ('independently_authored', 6700), ('lookup_source', 6700), ('style_profile', 6700), ('hard_negative_targets', 6700), ('required_pii_targets', 6700), ('source_case_id', 6700), ('response_id', 6700), ('pii_policy', 6700), ('pii_resource_categories', 6700), ('production', 6700), ('openai_usage', 6700), ('local_validation_passed', 6700), ('generation_attempts', 6700), ('patient_age', 6273), ('identifier_format_diversification', 3932), ('national_identifier_injection', 2698), ('healthcare_organization_case_rebalancing', 1934), ('email_domain_diversification', 1038), ('demographic_hard_negative', 696), ('clinical_model_review', 404)]
+  lang: [('en-GB', 3350), ('en-US', 3350)]
+  document_type: [('clinic_note', 1118), ('discharge_summary', 1118), ('emergency_note', 1116), ('referral_letter', 1116), ('laboratory_report', 1116), ('nursing_note', 1116)]
+  generation_method: [('english-case-luna-marked-renderer-v1', 6700)]
+  renderer: [('luna_marked_clinical_document', 6700)]
+  model: [('gpt-5.6-luna', 6700)]
+  synthetic: [('True', 6700)]
+  style_profile.name: [('compact-clinician', 1690), ('structured-record', 1367), ('minimal-ehr', 1084), ('specialist-report', 766), ('narrative-scribe', 694), ('handover-note', 498), ('patient-facing-letter', 403), ('longitudinal-summary', 198)]
+  doc_type x lang: [(('clinic_note', 'en-GB'), 559), (('discharge_summary', 'en-GB'), 559), (('clinic_note', 'en-US'), 559), (('discharge_summary', 'en-US'), 559), (('emergency_note', 'en-GB'), 558), (('referral_letter', 'en-GB'), 558), (('laboratory_report', 'en-GB'), 558), (('nursing_note', 'en-GB'), 558), (('emergency_note', 'en-US'), 558), (('laboratory_report', 'en-US'), 558), (('nursing_note', 'en-US'), 558), (('referral_letter', 'en-US'), 558)]
+  hard_negative_targets categories: [('duration', 1241), ('relative_time', 1167), ('medication', 832), ('measurement', 485), ('vital_sign', 484), ('time', 466), ('pain_score', 401), ('caregiver_role', 292), ('eponym', 282), ('gestational_age', 202), ('gene_variant', 177), ('terminology_code', 171), ('clinical_scale', 165), ('laboratory_code', 107), ('ambiguous_month_word', 95), ('impossible_date', 91), ('device_model', 42)]
+  hard-negative examples: {'relative_time': ['in about 8 weeks', 'in about 9 weeks', 'in about 9 weeks'], 'medication': ['furosemide 40 mg once daily', 'flucloxacillin 500 mg four times daily', 'aspirin 75 mg once daily'], 'pain_score': ['5/10', '5/10', '5/10'], 'eponym': ['Hodgkin lymphoma', 'Parkinson disease', 'Parkinson disease'], 'impossible_date': ['31/04/2025', '31/04/2025', '31/04/2025'], 'caregiver_role': ['consultant neurologist', 'consultant respiratory physician', 'consultant obstetrician-gynaecologist'], 'duration': ['for 3 days', 'for 3 days', 'for 3 days'], 'measurement': ['510 µmol/L', '510 µmol/L', 'creatinine 186 µmol/L'], 'gestational_age': ["9+4 weeks' gestation", "9+4 weeks' gestation", "9+4 weeks' gestation"], 'time': ['08:15', '08:15', '08:15'], 'gene_variant': ['BRCA1 c.68_69delAG', 'BRCA1 c.68_69delAG', 'BRCA1 c.68_69delAG'], 'device_model': ['Model X3 cardiac monitor', 'Model X3 cardiac monitor', 'Model X3 cardiac monitor'], 'ambiguous_month_word': ['may improve with hydration', 'may improve with hydration', 'may improve with hydration'], 'vital_sign': ['120/80 mmHg', '120/80 mmHg', '120/80 mmHg'], 'laboratory_code': ['LOINC 718-7', 'LOINC 718-7', 'LOINC 718-7'], 'terminology_code': ['SNOMED CT 233604007', 'SNOMED CT 233604007', 'SNOMED CT 233604007'], 'clinical_scale': ['Glasgow Coma Scale 15', 'Glasgow Coma Scale 15', 'Glasgow Coma Scale 15']}
+  document_creation_date decades: [('1980s', 416), ('1990s', 420), ('2000s', 421), ('2010s', 1250), ('2020s', 3366), ('2030s', 410), ('2040s', 417)]
+  pediatric-related keys: []
+
+text chars: {'min': 868, 'p25': 1418, 'median': 1618, 'p75': 1844, 'max': 3953, 'mean': 1683.8}
+text words: {'min': 111, 'p25': 185, 'median': 215, 'p75': 249, 'max': 559, 'mean': 225.6}
+  words en-GB: {'min': 112, 'p25': 187, 'median': 218, 'p75': 251, 'max': 559, 'mean': 228.0}
+  words en-US: {'min': 111, 'p25': 184, 'median': 213, 'p75': 245, 'max': 540, 'mean': 223.3}
+total words: 1511647
+
+spans total: 38581 | per doc: {'min': 5, 'p25': 5, 'median': 6, 'p75': 6, 'max': 12, 'mean': 5.8} | docs with 0 spans: 0
+integrity: bad offsets 0 | text mismatches 0 | overlapping pairs 0 | docs with unsorted spans 0
+confirmed flag: Counter({True: 38581})
+span field keys: Counter({'begin': 38581, 'end': 38581, 'text': 38581, 'label': 38581, 'category': 38581, 'subtype': 38581, 'confirmed': 38581, 'source_slot': 38581, 'semantic_type': 2698})
+
+label counts (all | en-GB | en-US | median words | max words):
+  Name:Patient                   7486   3694   3792    2.0    3
+  ID:Patient                     6241   3133   3108      1    5
+  Name:Caregiver                 4313   2118   2195      2    5
+  Date                           3441   1754   1687      3    3
+  Organization:Healthcare        2952   1467   1485    3.0   10
+  Name:Other                     2931   1483   1448      2    3
+  Age_Birthdate                  2929   1468   1461      2    4
+  Address_Location:Patient       2430   1219   1211    6.0   12
+  Contactdetails                 2142   1073   1069    2.0    2
+  ID:Caregiver                   1298    637    661    1.0    2
+  Profession                      925    466    459      2    4
+  Organization:Other              715    356    359      3    6
+  Address_Location:Other          450    224    226    1.0    4
+  Address_Location:Caregiver      328    166    162    1.0    3
+documents containing each label: [('Name:Patient', 6700), ('ID:Patient', 4771), ('Name:Caregiver', 3896), ('Date', 3227), ('Age_Birthdate', 2925), ('Name:Other', 2627), ('Address_Location:Patient', 2428), ('Organization:Healthcare', 2420), ('Contactdetails', 2129), ('ID:Caregiver', 1256), ('Profession', 923), ('Organization:Other', 696), ('Address_Location:Other', 450), ('Address_Location:Caregiver', 320)]
+
+source_slot (top 40): [('healthcare.organization', 2952), ('patient.national_id', 2698), ('patient.address', 2430), ('encounter.date', 1820), ('patient.mrn', 1777), ('patient.report_id', 1766), ('followup.date', 1621), ('patient.given_name', 1406), ('caregiver.professional_id', 1298), ('patient.initial_surname', 1244), ('patient.name_upper', 1216), ('patient.given_family_initial', 1213), ('patient.name', 1206), ('patient.name_lower', 1201), ('patient.phone', 1097), ('patient.email', 1045), ('patient.profession', 925), ('caregiver.initial_surname', 918), ('caregiver.credentialed_name', 881), ('caregiver.name_lower', 863), ('caregiver.name_upper', 830), ('caregiver.name', 821), ('patient.age_contextual', 755), ('patient.age_abbreviated', 745), ('patient.birth_date', 733), ('other.organization', 715), ('patient.age_hyphenated', 696), ('relative.given_name', 609), ('relative.name_lower', 604), ('relative.initial_surname', 603), ('relative.name', 583), ('relative.name_upper', 532), ('other.locality', 450), ('caregiver.locality', 328)]
+required_pii_targets: 36198, not found verbatim among spans: 1448
+
+examples per label:
+  Address_Location:Caregiver: ['BALLYHORNAN', 'Braeswick', 'RASHARKIN', 'ARMOY', 'Fairhill', 'ROSTREVOR', 'GORTIN', 'Tongland']
+  Address_Location:Other: ['Poolewe', 'LAURELVALE', 'Fanagmore', 'Clare', 'Achfrish', 'BALLYMARTIN', 'Anwoth', 'DRUMBEG']
+  Address_Location:Patient: ['22 De Ferrers Drive, Aylesbury, HP19 0FA', '151 Padeswood Lake Road, Tref-y-Clawdd / Knighton, LD7 1AA', '161 ASHLEIGH MANOR, BANBRIDGE', '158 Merchants Road, Crossapol, PA77 6AB', '43 City Road, Llanfair-ym-Muallt / Builth Wells, LD2 3AA', '71 ST. JOHNS PLACE EAST, ROSTREVOR', '9 Geesh Road, Fareham, PO14 1AA', '137 Drumlaken Path, West Linton, EH46 7AA']
+  Age_Birthdate: ['42-year', '79-year', '41-year', '40 y/o', '36-year', '65 y/o', '50-year', '47 y/o']
+  Contactdetails: ['okkes.reilly50@gmail.com', 'elis.hogg40@gmail.com', '07700 900547', '07700 900208', 'honie.hunt19@outlook.com', 'abraar.clayton86@hotmail.com', '07700 900175', 'isra.ratcliffe25@btinternet.com']
+  Date: ['29th February 1996', '06/04/2018', '1 Dec 2019', '28 May 2020', '2022-07-02', '02/03/2023', '8 Dec 2024', '13 September 2035']
+  ID:Caregiver: ['0987216', '0017097', '0165150', 'GMC 0815888', '0099402', '0695920', '0912323', '0502159']
+  ID:Patient: ['000 161 4780', '0007267674', '0466356', '0129927', '0005218732', '26/351462', '0696351994', '06480969']
+  Name:Caregiver: ['J. Payne', 'Dr Tamer Horne, MBBS', 'Aryaz Khalid', 'cecilia-rose turnbull', 'zeenah french', 'Dr Suheib Childs, MBBS', 'Nylah-Mae Sanderson', 'Dr Chahat Cook, MBBS']
+  Name:Other: ['A. Bryant', 'BOJIDAR PRINCE', 'C. Daniel', 'SIFN LANGLEY', 'Syona Sanders', 'Bissan Kane', 'Jem Aston', 'Teague']
+  Name:Patient: ['OKKES REILLY', 'RENU BLACKWELL', 'Elis', 'EDMOND NEEDHAM', 'moyosola fitzpatrick', 'N. Whitfield', 'Raheemah ALDRIDGE', 'amita harding']
+  Organization:Healthcare: ['Aberdeen Royal Infirmary', 'Ulster Hospital', 'Skin Hospital', 'The Royal London Hospital Whitechapel Rd', 'Royal Infirmary of Edinburgh', 'Sittingbourne Hospital', 'GLANGWILI GENERAL HOSPITAL', 'BRONGLAIS GENERAL HOSPITAL']
+  Organization:Other: ['Brownroyd Hill Secondary School', 'MAGHERAMASON Sports Club', 'Sarn Mellteyrn Housing Association', 'Moorend Public Library', 'MAGHABERRY Community Centre', 'Lydstep Town Council', 'Brae Housing Association', 'Norwood Green Community Centre']
+  Profession: ['Writer', 'Baker', 'Taxi driver', 'software developer', 'Cleaner', 'Administrative assistant', 'Barista', 'Postal worker']
+slots for Contactdetails: [('patient.phone', 1097), ('patient.email', 1045)]
+slots for Age_Birthdate: [('patient.age_contextual', 755), ('patient.age_abbreviated', 745), ('patient.birth_date', 733), ('patient.age_hyphenated', 696)]
+slots for ID:Patient: [('patient.national_id', 2698), ('patient.mrn', 1777), ('patient.report_id', 1766)]
+slots for ID:Caregiver: [('caregiver.professional_id', 1298)]
+slots for Date: [('encounter.date', 1820), ('followup.date', 1621)]
