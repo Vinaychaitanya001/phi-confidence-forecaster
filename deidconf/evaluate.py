@@ -290,7 +290,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default="results/eval")
     ap.add_argument("--rules", default="cached", choices=["cached", "live", "baseline"],
                     help="live: run the current regex rules (incl. MedDeID rule set) instead of the cached spans; "
-                         "baseline: run the repo's shipped rules and settings (no MedDeID rule set)")
+                         "baseline: run the original regex rules and NER model (no MedDeID rule set)")
     ap.add_argument("--model", default="cached", choices=["cached", "redecode"],
                     help="redecode: decode model spans again from cached probabilities with the current label map")
     ap.add_argument("--tag", default=None, help="output folder suffix (default: '_live' when rules/model are live)")

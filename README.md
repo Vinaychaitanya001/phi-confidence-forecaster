@@ -15,7 +15,7 @@ Jiwani et al., 2026, arXiv 2603.00022 (noise reduction in BERT NER with probabil
 
 ## Results (held-out test split, 1,008 notes, single run)
 
-| | Baseline (repo as shipped) | This work |
+| | Baseline (regex + NER model) | This work |
 |---|---|---|
 | PHI recall (chars) | 91.1 % | **98.5 %** |
 | Strict category F1 | 73.8 % | **94.5 %** |

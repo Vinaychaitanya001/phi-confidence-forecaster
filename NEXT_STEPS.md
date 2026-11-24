@@ -14,7 +14,7 @@
 
 | # | Step | Result on `test` (single run, nothing refitted) |
 |---|---|---|
-| 1–2 | Detector + evaluation | Baseline (repo as shipped): PHI recall 91.1 %, 244 false alarms, strict F1 73.8 %. **Improved: 98.5 %, 60 false alarms, strict F1 94.5 %**, non-PII redaction 0.07 % |
+| 1–2 | Detector + evaluation | Baseline (regex + NER model): PHI recall 91.1 %, 244 false alarms, strict F1 73.8 %. **Improved: 98.5 %, 60 false alarms, strict F1 94.5 %**, non-PII redaction 0.07 % |
 | 3 | Full probabilities + MC dropout | cached in `results/detect/`, `results/mcdropout/` (cal and test) |
 | 4–5 | Span confidence (papers 1 + 2 + ours) | is-PHI: ECE 0.203 → **0.003**, AUROC(error) 0.752 → **0.998**, all 62 spans that are not PHI (including all 60 false alarms) among the 5 % least-confident spans. Category: ECE 0.0045, AUROC 0.997. Exact: ECE 0.005, AUROC 0.997 |
 | 6 | Missed PHI (our addition) | 86 % of uncovered gold spans get a candidate; forecaster AUROC 0.990; adding at p ≥ 0.5 adds 80 candidates, 76 of them real missed PHI (95 % precision), PHI recall 98.5 % → 99.5 %, gold spans missed 114 → 40; note-level risk AUROC 0.964, riskiest 10 % of notes hold 84 % of misses |

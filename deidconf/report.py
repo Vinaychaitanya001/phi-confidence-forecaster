@@ -43,7 +43,7 @@ def main(argv=None) -> int:
           "|---|---|---|---|---|---|"]
     rows = []
     if base:
-        rows.append(("Baseline: repo rules + model (as shipped)", base))
+        rows.append(("Baseline: regex + NER model", base))
     if ev_rules:
         rows.append(("MedDeID rules only", ev_rules))
     if ev_model:

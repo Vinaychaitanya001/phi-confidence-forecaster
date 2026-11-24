@@ -32,13 +32,13 @@ def detector(split, tag, out):
     bv = [base["char"]["phi_recall"] * 100, base["strict_category"]["f1"] * 100]
     nv = [new["char"]["phi_recall"] * 100, new["strict_category"]["f1"] * 100]
     x = np.arange(2)
-    r1 = a.bar(x - 0.19, bv, 0.38, color=RAW, label="Repo as shipped")
+    r1 = a.bar(x - 0.19, bv, 0.38, color=RAW, label="Regex + NER")
     r2 = a.bar(x + 0.19, nv, 0.38, color=OURS, label="With our 43 rules")
     for r in list(r1) + list(r2):
         a.text(r.get_x() + r.get_width() / 2, r.get_height() + 0.5, f"{r.get_height():.1f}%", ha="center", fontsize=10)
     a.set_xticks(x, names); a.set_ylim(50, 110); a.set_ylabel("%"); a.legend(loc="upper center", ncol=2, frameon=False); _style(a)
     fa = [base["pred_all"]["false_alarms"], new["pred_all"]["false_alarms"]]
-    r = b.bar(["Repo as\nshipped", "With our\nrules"], fa, color=[RAW, OURS], width=0.55)
+    r = b.bar(["Regex +\nNER", "With our\nrules"], fa, color=[RAW, OURS], width=0.55)
     for rr in r:
         b.text(rr.get_x() + rr.get_width() / 2, rr.get_height() + 4, f"{int(rr.get_height())}", ha="center", fontsize=10)
     b.set_title("False alarms", fontsize=11); _style(b)

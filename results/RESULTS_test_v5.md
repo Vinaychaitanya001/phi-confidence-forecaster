@@ -4,7 +4,7 @@
 
 | System | PHI recall (chars) [95% CI] | Non-PII redaction | Strict category P / R / F1 | False alarms | Hard negatives redacted |
 |---|---|---|---|---|---|
-| Baseline: repo rules + model (as shipped) | 91.1% [90.5%–91.7%] | 0.30% | 73.3% / 74.2% / 73.8% | 244 | 32 / 1008 |
+| Baseline: regex + NER model | 91.1% [90.5%–91.7%] | 0.30% | 73.3% / 74.2% / 73.8% | 244 | 32 / 1008 |
 | MedDeID rules only | 94.1% [93.5%–94.8%] | 0.04% | 97.6% / 91.6% / 94.5% | 9 | 0 / 1008 |
 | Model only | 83.4% [82.5%–84.3%] | 0.03% | 73.2% / 69.0% / 71.0% | 51 | 11 / 1008 |
 | **Improved: MedDeID rules + model** | 98.5% [98.3%–98.9%] | 0.07% | 94.1% / 94.9% / 94.5% | 60 | 11 / 1008 |

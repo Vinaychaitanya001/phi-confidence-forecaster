@@ -16,7 +16,7 @@ if [ "$MC" = "1" ]; then
   grep -v Warning results/logs/mcdropout_test.log | tail -1
 fi
 echo "== 2. evaluate (live rules + current label map, same settings as cal)"
-$P -m deidconf.evaluate --split test --rules baseline --model redecode --tag "" 2>&1 | grep -v Warning | grep "rules+model " | sed 's/^/baseline (shipped repo rules, run live): /' || true
+$P -m deidconf.evaluate --split test --rules baseline --model redecode --tag "" 2>&1 | grep -v Warning | grep "rules+model " | sed 's/^/baseline (original regex rules + NER, run live): /' || true
 $P -m deidconf.evaluate --split test --rules live --model redecode --tag $TAG 2>&1 | grep -v Warning | tail -5
 echo "== 3. features"
 $P -m deidconf.features --split test --eval-tag $TAG --system rules+model 2>&1 | grep -v Warning | tail -2

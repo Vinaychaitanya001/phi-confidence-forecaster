@@ -53,7 +53,7 @@ def adapted_configs():
 
 
 def baseline_configs():
-    """The repo's shipped rules and settings, only adapted to the MedDeID guideline (the 'as shipped' baseline that
+    """The original regex rules and NER model, only adapted to the MedDeID guideline (the baseline that
     was scored on cal before any MedDeID rule existed): all ages, titles kept, states kept, no model-score cut."""
     from deid.config import load_labels, load_yaml
     det = load_yaml(REPO / "configs/detection.yaml")

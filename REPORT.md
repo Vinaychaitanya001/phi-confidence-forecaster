@@ -98,7 +98,7 @@ are the first numbers seen on `cal`.
 
 | System | PHI recall (chars) [95 % CI] | Non-PII redaction | Strict category P / R / F1 | False alarms | Hard negatives redacted |
 |---|---|---|---|---|---|
-| Baseline: repo rules + model, as shipped | 91.4 % [90.8–92.0] | 0.31 % | 73.0 / 74.3 / 73.7 | 251 | 33 / 1000 |
+| Baseline: regex + NER model | 91.4 % [90.8–92.0] | 0.31 % | 73.0 / 74.3 / 73.7 | 251 | 33 / 1000 |
 | MedDeID rules only | 94.1 % [93.5–94.8] | 0.06 % | 97.6 / 91.6 / 94.5 | 16 | 2 / 1000 |
 | Model only | 83.6 % [82.7–84.6] | 0.04 % | 72.8 / 69.1 / 70.9 | 57 | 14 / 1000 |
 | **MedDeID rules + model** | **98.5 % [98.2–98.8]** | 0.09 % | 94.1 / 94.9 / **94.5** | 72 | 15 / 1000 |
@@ -161,14 +161,14 @@ of the 15 for review. Per note on CPU: rules 9 ms, model 0.40 s, MC dropout with
 ### 5.2 Test split (single run; full tables in `results/RESULTS_test_v5.md`)
 
 Nothing was refitted: rules and settings from `train`, forecasters and thresholds from `cal`. The baseline row
-re-runs the repo's shipped rules and settings on the same notes (code-level guards added during the project also
+re-runs the original regex rules and NER model, with the same guideline settings, on the same notes (code-level guards added during the project also
 apply to it, worth ≈ 9 false alarms per 1,000 notes on `cal`).
 
 **Detector** (1,008 notes, 5,790 gold spans).
 
 | System | PHI recall (chars) [95 % CI] | Non-PII redaction | Strict category P / R / F1 | False alarms | Hard negatives redacted |
 |---|---|---|---|---|---|
-| Baseline: repo rules + model, as shipped | 91.1 % [90.5–91.7] | 0.30 % | 73.3 / 74.2 / 73.8 | 244 | 32 / 1008 |
+| Baseline: regex + NER model | 91.1 % [90.5–91.7] | 0.30 % | 73.3 / 74.2 / 73.8 | 244 | 32 / 1008 |
 | MedDeID rules only | 94.1 % [93.5–94.8] | 0.04 % | 97.6 / 91.6 / 94.5 | 9 | 0 / 1008 |
 | Model only | 83.4 % [82.5–84.3] | 0.03 % | 73.2 / 69.0 / 71.0 | 51 | 11 / 1008 |
 | **MedDeID rules + model** | **98.5 % [98.3–98.9]** | 0.07 % | 94.1 / 94.9 / **94.5** | 60 | 11 / 1008 |
@@ -255,7 +255,7 @@ confidence layer. Per note on CPU: rules 17 ms, model 0.35 s, MC dropout with 10
 
 ## 6. Discussion
 
-**What the detector changes bought.** The shipped repo reached 91 % character recall on MedDeID with 251 false
+**What the detector changes bought.** The original regex + NER system reached 91 % character recall on MedDeID with 251 false
 alarms per 1,000 notes; most of the gap was guideline mismatch (titles, states, all ages, `Occupation:`), UK
 identifiers the HIPAA-oriented rules never saw, and generic organisation rules that fired on specialties. 43
 guideline-specific rules written on `train` plus a handful of post-processing switches took recall to 98.5 % and
@@ -333,7 +333,7 @@ spans, 95 on test, 18 of them wrong): the forecaster's ECE there is 0.035, ten t
 python -m deidconf.prepare                      # split (once)
 python -m deidconf.detect --split cal           # model pass, cached
 python -m deidconf.mcdropout --split cal        # 10 passes; the saved forecasters use these features
-python -m deidconf.evaluate --split cal --rules baseline --model redecode --tag ""   # shipped repo
+python -m deidconf.evaluate --split cal --rules baseline --model redecode --tag ""   # original regex + NER baseline
 python -m deidconf.evaluate --split cal --rules live --model redecode --tag _v5
 python -m deidconf.features --split cal --eval-tag _v5
 python -m deidconf.confidence --features results/features/cal_v5.rules+model.csv --target y_is_phi --save
