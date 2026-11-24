@@ -1,0 +1,42 @@
+{
+ "notes": 1008,
+ "spans": 5838,
+ "not_phi_spans": 62,
+ "drop": {
+  "precision_before": 0.9893799246317232,
+  "precision_after": 0.9972351823051667,
+  "spans_dropped": 51,
+  "errors_removed": 46,
+  "true_spans_lost": 5,
+  "spans_kept": 5787
+ },
+ "add": {
+  "threshold": 0.5,
+  "added": 80,
+  "real_misses": 76
+ },
+ "before": {
+  "phi_recall": 0.9854594143831996,
+  "nonphi_redaction": 0.0007143379785971444,
+  "missed_gold_spans": 114,
+  "false_alarms": 60
+ },
+ "after_drop": {
+  "phi_recall": 0.98478993669325,
+  "nonphi_redaction": 0.00039065358204531334,
+  "missed_gold_spans": 119,
+  "false_alarms": 14
+ },
+ "after_add": {
+  "phi_recall": 0.9948555924877556,
+  "nonphi_redaction": 0.0007341807002248428,
+  "missed_gold_spans": 40,
+  "false_alarms": 60
+ },
+ "after_drop_and_add": {
+  "phi_recall": 0.9941861147978059,
+  "nonphi_redaction": 0.0004104963036730118,
+  "missed_gold_spans": 45,
+  "false_alarms": 14
+ }
+}

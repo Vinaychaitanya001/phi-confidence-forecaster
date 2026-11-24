@@ -113,3 +113,22 @@ def test_candidates_pick_uncovered_mass_and_repeats():
 
 def test_labels_cover_all_categories():
     assert len(LABELS) == 14
+
+
+# ----------------------------------------------------------------------------- before / after
+def test_before_after_drop_and_add():
+    from deidconf.before_after import summarise
+    text = "Pt John Smith seen by Dr Ann Lee at Leeds."
+    note = {"note_id": "n1", "text": text,
+            "gold_spans": [{"start": 3, "end": 13}, {"start": 25, "end": 32}],
+            "predicted_spans": [{"start": 3, "end": 13, "conf_is_phi": 0.99, "verdict": "correct"},
+                                {"start": 14, "end": 18, "conf_is_phi": 0.10, "verdict": "false alarm"},
+                                {"start": 25, "end": 28, "conf_is_phi": 0.95, "verdict": "boundary off"}],
+            "candidate_misses": [{"start": 29, "end": 32, "p_missed": 0.8, "is_real_miss": 1},
+                                 {"start": 36, "end": 41, "p_missed": 0.1, "is_real_miss": 0}]}
+    s = summarise([note])
+    assert s["drop"]["spans_dropped"] == 1 and s["drop"]["true_spans_lost"] == 0
+    assert s["before"]["false_alarms"] == 1 and s["after_drop"]["false_alarms"] == 0
+    assert s["before"]["missed_gold_spans"] == 1 and s["after_add"]["missed_gold_spans"] == 0
+    assert s["add"] == {"threshold": 0.5, "added": 1, "real_misses": 1}
+    assert s["before"]["phi_recall"] == pytest.approx(13 / 17) and s["after_add"]["phi_recall"] == pytest.approx(16 / 17)

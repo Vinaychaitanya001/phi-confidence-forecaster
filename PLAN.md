@@ -1,7 +1,7 @@
 # Project Plan: Confidence-Aware Clinical De-identification on MedDeID
 
-*Final plan, 2026-11-15. Dataset: `meddeid_english_synthetic/`. Detector: the existing `Deidentification/` system,
-unchanged. Our code: `deidconf/`.*
+*The plan as written before the build. What was built and measured is in `REPORT.md`; section 12 lists where the
+build differs from this plan. Dataset: `meddeid_english_synthetic/`. Our code: `deidconf/`.*
 
 ---
 
@@ -20,10 +20,10 @@ score".
 
 | Piece | What | Status |
 |---|---|---|
-| **Data** | MedDeID English synthetic corpus: 6,700 notes (3,350 UK, 3,350 US), 6 document types, 14 PHI labels, 38,581 labelled spans, plus 6,258 labelled *hard negatives* (text that looks like PHI but is not). Labels verified clean. | Done |
+| **Data** | MedDeID English synthetic corpus: 6,700 notes (3,350 UK, 3,350 US), 6 document types, 14 PHI labels, 38,581 labelled spans, plus 6,700 labelled *hard negatives* (one per note) (text that looks like PHI but is not). Labels verified clean. | Done |
 | **Split** | `cal` 1,000 notes: build and tune the confidence model. `test` 1,008 notes: scored **once**, at the end. `train` 4,692 notes: spare; used only if the confidence model needs more errors to learn from. Stratified by locale × document type, fixed seed. | Done (`data/meddeid/`) |
-| **Detector** | The existing `Deidentification` repo exactly as it is: 75 regex rules + **OpenMed FastClinical-82M** NER model (pinned revision) + fusion. **No training, no fine-tuning.** Only configuration is adapted to MedDeID's annotation guideline: all ages count (not only ≥ 90), clock times are not PHI, titles stay inside names. | Weights downloaded |
-| **Confidence layer** | Our own code in `deidconf/`, built from the two papers. | Next |
+| **Detector** | The existing `Deidentification` repo: its regex rules + **OpenMed FastClinical-82M** NER model (pinned revision) + fusion. **No training, no fine-tuning.** Configuration adapted to MedDeID's annotation guideline: all ages count (not only ≥ 90), clock times are not PHI, titles stay inside names. | Done |
+| **Confidence layer** | Our own code in `deidconf/`, built from the two papers. | Done |
 
 ---
 
@@ -33,7 +33,7 @@ score".
 |---|---|---|
 | Problem | Softmax confidence is badly calibrated | Softmax thresholding cannot separate true from false entities |
 | Idea | Train a small second model (the **forecaster**) on held-out data to predict "is this span correct?" | Train a **decision tree** to label each prediction strong or weak |
-| Features | MC-dropout **mean** probability, MC-dropout **variance**, **rank** in top-k decoding, span **length** | **PDM**: probabilities of neighbouring tokens, in 10 bins, weighted by distance; plus statistics (mean, max, entropy, coefficient of variation, top-1/top-2 ratio and gap) |
+| Features | MC-dropout **mean** probability, the **spread** of the MC passes (10th and 90th percentiles, called "Var"), **rank** in top-k decoding, span **length** | **PDM**: probabilities of neighbouring tokens, in 10 bins, weighted by distance; plus statistics (mean, max, entropy, coefficient of variation, top-1/top-2 ratio and gap) |
 | Model | Gradient-boosted trees | Decision tree (explainable decision paths) |
 | Evaluation | ECE, reliability plots, F1 after re-scoring, out-of-domain test | F1; % false positives removed vs % true positives lost |
 | We take | forecaster, uncertainty features, ECE, re-scoring, shift test | PDM, statistics, decision paths, "remove noise but cap recall loss" |
@@ -151,10 +151,19 @@ score".
 6. `Deidentification/REPORT.md`: how the detector works.
 
 
-## 10. Final status (2026-11-15)
+## 12. Final status (updated 2026-11-24)
 
 All seven steps are done; `test` was run once with `scripts/run_test.sh`. Headline (test, 1,008 notes):
 detector PHI recall 91.1 % → 98.5 % (strict F1 73.8 % → 94.5 %, false alarms 244 → 60); span confidence ECE
-0.20 → 0.003 with AUROC(error) 0.998 (all false alarms in the 5 % least-confident spans); missed-PHI forecaster
-AUROC 0.990, 95 % precision on added candidates, note-level risk AUROC 0.964. Full write-up in `REPORT.md`,
-tables in `results/RESULTS_cal_v5.md` and `results/RESULTS_test_v5.md`.
+0.203 → 0.003 with AUROC(error) 0.998 (all 62 non-PHI spans in the 5 % least-confident spans); missed-PHI forecaster
+AUROC 0.990, 95 % precision on added candidates, PHI recall 98.5 % → 99.5 % with them added, note-level risk AUROC
+0.964. Full write-up in `REPORT.md`, tables in `results/RESULTS_cal_v5.md`, `results/RESULTS_test_v5.md` and
+`results/before_after/test_v5/report.md`.
+
+Where the build differs from the plan above:
+- 43 MedDeID regex rules were added and a few repo settings changed; they were written on `train`, which was
+  therefore used for rule development rather than kept spare.
+- Missed-PHI candidates are runs of uncovered words with PHI mass ≥ 0.02 and repeats of detected text; candidates
+  from a second-best decoding or from suppressed rule matches were not built.
+- Paper 1's rank feature is not used (the model has no top-k decoder); paper 2's top-1/top-2 gap and ratio are used.
+- Paper 2's three PDM classes (B, I, O) are adapted to same category / other entity / not PHI.

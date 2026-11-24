@@ -11,7 +11,8 @@ result": a confidence score. Two papers framed the work:
 
 - **Jagannatha & Yu (ACL 2020), *Calibrating Structured Output Predictors for NLP***: a second, small model (the
   *forecaster*) is trained on held-out data to predict whether each predicted entity is correct, from the model's
-  probability, its MC-dropout variance, the rank of the decoding and the span length; calibration is measured with
+  probability averaged over MC-dropout passes, the spread of those passes (10th and 90th percentiles), the rank of
+  the decoding and the span length; calibration is measured with
   expected calibration error (ECE) and the calibrated score is used to re-rank predictions.
 - **Jiwani et al. (2026), *Noise reduction in BERT NER models for clinical entity extraction***: an explainable
   decision tree classifies each prediction as strong or weak from a *probability density map* (PDM) of the
@@ -24,11 +25,12 @@ forecaster and a note-level leak risk.
 
 ## 2. Data
 
-MedDeID English synthetic clinical corpus (Hellemans et al., 2026; CC BY 4.0): 6,700 synthetic documents
-(3,350 en-GB, 3,350 en-US; six document types; median 215 words), 38,581 PHI spans in 14 labels, plus 6,258
-labelled *hard negatives* (clock times, doses, pain scores, eponyms, terminology codes, impossible dates…).
-Labels were verified exact (offsets, no overlaps; the 1,448 generator values absent from the labels are all the
-`-old` suffix the guideline excludes).
+MedDeID English synthetic clinical corpus (Hellemans et al., 2026; CC BY 4.0;
+https://huggingface.co/datasets/stighellemans/meddeid-english-synthetic-corpus): 6,700 synthetic documents
+(3,350 en-GB, 3,350 en-US; six document types; median 215 words), 38,581 PHI spans in 14 labels, plus 6,700
+labelled *hard negatives*, one per note (clock times, doses, pain scores, eponyms, terminology codes, impossible dates…).
+Labels were verified exact (offsets, no overlaps). 1,448 generator age values are not labelled word for word, all by the
+guideline: 696 "42-year-old" ages are labelled "42-year" and 752 "aged 57 years" ages are labelled "57 years".
 
 Split, stratified by locale × document type with a fixed seed: **train 4,692** (rule development only; no model is
 trained), **calibration 1,000** (forecaster training, thresholds, every decision), **test 1,008** (scored once).
@@ -38,7 +40,7 @@ trained), **calibration 1,000** (forecaster training, thresholds, every decision
 ### 3.1 Detector (not trained)
 The existing `Deidentification` system: regex rules + the OpenMed FastClinical-82M token classifier, used exactly as
 published. Configuration adapted to the MedDeID guideline: all ages count, clock times are not PHI, titles stay in
-names, states are PHI, the model's *occupation* label is not PHI (it fires on caregiver roles), `-old` is trimmed
+names, states are PHI, the model's *occupation* tags stay ignored as in the repo (they also fire on caregiver roles), `-old` is trimmed
 from ages, impossible numeric dates and pain scores are not dates.
 
 ### 3.2 MedDeID rule set
@@ -50,12 +52,14 @@ credentials and titles (kept inside the span), localities, home addresses and or
 the repo's HIPAA-oriented clean-up. The repo's generic organisation and `name_field` rules are switched off.
 
 ### 3.3 Fusion
-The repo's fusion: union of same-label overlaps; regex boundaries win for structured categories (dates, IDs,
-contact, ages, professions); exact repeats of a detected name in the same note are marked too.
+The repo's fusion: overlapping spans with the same label are merged into their union. When labels conflict, rule
+spans of a structured category (dates, times, phones, emails, IDs, ages, other PHI, and professions in our setting)
+keep their boundaries and label; otherwise the highest-scoring span wins. Other exact occurrences of a detected name
+in the same note are marked too.
 
 ### 3.4 Confidence of predicted spans
 For every predicted span, three targets: *is PHI* (≥ 50 % of its characters inside gold PHI), *category right*, and
-*exact*. Features (100 columns): paper 1 (mean / min / geometric-mean probability of the predicted category over the
+*exact*. Features (86 columns used by the forecasters): paper 1 (mean / min / geometric-mean probability of the predicted category over the
 span's words, P(O), length, MC-dropout mean and standard deviation over 10 passes, pass agreement); paper 2 (PDM:
 10 probability bins × {same category, other entity, O} over ±8 neighbouring words with Gaussian distance weights;
 entropy, top-1/top-2 ratio and gap, coefficient of variation; neighbour and note-level statistics); ours
@@ -132,10 +136,10 @@ Locale shift (forecaster fitted on en-GB only, scored on en-US): is-PHI ECE 0.00
 is-PHI): MC-dropout mean P(O), fused rule score, geometric-mean probability, rule id, previous word's probability of
 the same category, letter fraction, span length, position in the note.
 
-The depth-5 tree reads as rules a reviewer can check. Its first split is the fused score (rule-backed spans vs
-model-only), then the MC-dropout mean P(O) of the span; a model-only span whose neighbourhood is low-entropy but whose
-mean P(O) exceeds 0.19 is right only 22 % of the time (41 spans), while rule-backed spans with mean P(O) ≤ 0.40 are
-right 100 % of the time (5,024 spans).
+The depth-5 tree reads as rules a reviewer can check. Its first split is the fused score (0.908; rule spans score
+1.0), then the MC-dropout mean P(O) of the span. A span with fused score ≤ 0.908, mean P(O) above 0.192 and maximum
+word entropy ≤ 1.233 is right only 22 % of the time (41 spans); the largest leaf, fused score above 0.969 and mean
+P(O) ≤ 0.398, holds 5,024 spans with confidence 1.000 to three decimals.
 
 **Missed PHI.** 838 candidates in 1,000 notes, 94 containing missed PHI. 110 gold spans are left (partly)
 uncovered by the detector; 93 of them (85 %) have a candidate.
@@ -147,7 +151,7 @@ uncovered by the detector; 93 of them (85 %) have a candidate.
 | paper 1 + paper 2 | 0.939 | 0.835 | 71 % / 89 % | 76 / 62 / 82 % |
 | **all** | **0.977** | **0.912** | 79 % / 97 % | 86 / 75 / **87 %** |
 
-Adding the p ≥ 0.5 candidates recovers 80 % of the uncovered gold spans at 87 % precision. Note-level leak risk:
+Adding the p ≥ 0.5 candidates adds 75 of the 94 candidates that contain missed PHI (80 %) at 87 % precision. Note-level leak risk:
 98 of 1,000 notes contain a miss; P(≥ 1 miss) has AUROC 0.947 (candidate count alone: 0.771), ECE 0.025;
 reviewing the riskiest 10 % of notes finds 81 % of all missed spans, 20 % finds 89 %.
 
@@ -183,14 +187,20 @@ letters) to 99.6 % (laboratory reports).
 | | **forecaster (GBDT, all features)** | **0.003** [0.002–0.005] | **0.003** | **0.998** | 100 / 100 / 100 % | 98.94 → **99.72** |
 | category right (179) | raw softmax | 0.183 [0.175–0.192] | 0.143 | 0.673 | 9 / 10 / 16 % | 96.93 → 96.93 |
 | | raw fused score | 0.018 [0.015–0.022] | 0.022 | 0.935 | 75 / 91 / 92 % | 96.93 → 97.01 |
-| | **forecaster** | **0.005** [0.003–0.007] | **0.006** | **0.997** | 98 / 99 / 100 % | 96.93 → **99.07** |
+| | **forecaster** | **0.0045** [0.003–0.007] | **0.006** | **0.997** | 98 / 99 / 100 % | 96.93 → **99.07** |
 | exact (342) | raw softmax | 0.160 [0.151–0.170] | 0.148 | 0.714 | 6 / 14 / 29 % | 94.14 → 94.14 |
 | | raw fused score | 0.045 [0.038–0.051] | 0.046 | 0.807 | 54 / 65 / 68 % | 94.14 → 94.27 |
 | | **forecaster** | **0.005** [0.004–0.009] | **0.007** | **0.997** | 84 / 98 / 100 % | 94.14 → **98.97** |
 
-Every one of the 62 non-PHI spans is among the 5 % least-confident spans, so a reviewer who looks at 290 of the
-5,838 spans sees all the false alarms. Dropping spans below the threshold chosen on `cal` raises precision from
-98.9 % to 99.7 % at ≤ 0.1 % recall loss.
+Every one of the 62 non-PHI spans is among the 5 % least-confident spans, so a reviewer who looks at 292 of the
+5,838 spans sees all of them. Dropping the 51 least-confident spans removes 46 of the 62 and 5 true spans, raising
+precision from 98.94 % to 99.72 %. The 51 is the largest number that loses at most 0.1 % of the true spans and is
+chosen with the answer key, so the "after" precision column shows what the score makes possible rather than a fixed
+threshold; the deliverable sends spans below 0.9 to review instead of dropping them.
+
+The raw softmax is miscalibrated mostly by being *under*-confident: rule-backed spans get a low model probability but
+are almost always right (on test, the 356 spans it rates below 0.05 are right 97 % of the time, the 235 it rates at
+0.45–0.50 are right 99.6 % of the time).
 
 Calibration per category on the test split (is-PHI target; `Other` = the repo's OTHER_PHI label, which has no
 MedDeID category and is where most of the remaining false alarms sit):
@@ -216,13 +226,29 @@ Reliability diagram: `results/confidence/test_v5.rules+model.y_is_phi/reliabilit
 | candidate AUROC / AUPRC (PHI mass only) | 0.889 / 0.464 | 0.858 / 0.375 |
 | candidate AUROC / AUPRC (forecaster) | 0.977 / 0.912 | **0.990 / 0.945** |
 | add at p ≥ 0.5: added / truly missed / precision | 86 / 75 / 87 % | 80 / 76 / **95 %** |
-| uncovered gold spans recovered by adding | 80 % | 77 % |
+| candidates containing missed PHI that are added | 75 of 94 (80 %) | 76 of 99 (77 %) |
 | notes with a miss; note-risk AUROC (candidate count) | 98; 0.947 (0.771) | 98; **0.964** (0.770) |
 | note-risk ECE | 0.025 | 0.026 |
 | missed spans in riskiest 5 / 10 / 20 % of notes | 52 / 81 / 89 % | 53 / 84 / 93 % |
 
-With the candidates added, character recall rises from 98.5 % towards the 99.0 % that the untrimmed union of rules
-and model reaches, at a fraction of its 87 false alarms (80 additions, 4 wrong).
+**Before and after the forecasters** (`python -m deidconf.before_after`; full table in
+`results/before_after/test_v5/report.md`). Same rules and model in both columns; nothing refitted.
+
+| Use of the forecasters | Measure | Before | After |
+|---|---|---|---|
+| span confidence | ECE: is PHI / category / exact | 0.203 / 0.183 / 0.160 | 0.003 / 0.0045 / 0.005 |
+| | AUROC for ranking wrong spans (is PHI) | 0.752 | 0.998 |
+| | not-PHI spans among the 10 % least confident | 19 % | 100 % |
+| drop the 51 least-confident spans | precision | 98.94 % | 99.72 % (5 true spans lost) |
+| | false alarms (spans touching no PHI) | 60 | 14 |
+| add candidates at p ≥ 0.5 | PHI recall (characters) | 98.5 % | 99.5 % |
+| | gold spans with uncovered letters or digits | 114 | 40 |
+| | non-PII redaction | 0.071 % | 0.073 % |
+| | additions that are real missed PHI | – | 76 of 80 |
+| note risk | missed spans in the riskiest 10 % of notes | – | 84 % |
+
+With both drop and add: PHI recall 99.4 %, 45 gold spans with uncovered letters or digits, 14 false alarms. Adding
+the candidates takes recall past the 99.0 % of the untrimmed union of rules and model, which has 87 false alarms.
 
 **Hard negatives and cost.** 11 of 1,008 labelled hard negatives redacted; 9 of the 11 flagged for review by the
 confidence layer. Per note on CPU: rules 17 ms, model 0.35 s, MC dropout with 10 passes 4.3 s.
@@ -238,15 +264,20 @@ precise (97.6 % strict precision) but miss 6 % of PHI; the model alone misses 16
 the confidence layer is what makes the union safe.
 
 **What paper 1 contributed.** The forecaster idea is the core of the span confidence: a small gradient-boosted model
-on held-out predictions turns a softmax that is badly calibrated (ECE ≈ 0.20, because rule-only spans carry no
-model probability and the model is over-confident on its errors) into a probability with ECE ≈ 0.005 and an
+on held-out predictions turns a softmax that is badly calibrated (ECE ≈ 0.20, mostly because rule-backed spans carry
+a low model probability yet are right, and partly because some model errors get a high probability) into a
+probability with ECE ≈ 0.005 and an
 error-ranking AUROC of 0.985 from the paper's own features alone. Temperature and Platt scaling cannot do this: they
 re-map one number, and a rule-backed span with model probability zero is still correct. The MC-dropout features
 sharpened the is-PHI forecaster a little (AUROC 0.985 → 0.989, Brier 0.0072 → 0.0058) and nothing on the exact
 target, at ten times the model cost (4.5 s vs 0.4 s per note); the tree nevertheless chose MC mean P(O) as its
 second split, so the signal is real but mostly redundant with the single-pass probabilities and the neighbourhood
-features. For deployment the no-MC forecaster (paper 1 + paper 2 + ours) is the sensible default; the MC variant is
-reported because the test models were fitted with it.
+features. A span-only forecaster without the MC columns (paper 1 + paper 2 + ours) is almost as good on `cal`
+(is-PHI ECE 0.0043 vs 0.0033, AUROC 0.996 vs 0.998), so MC dropout is not what makes the span scores work. The saved
+forecasters used for every test number, including the missed-PHI forecaster, were fitted *with* the MC features, so the
+deliverable pipeline runs the same 10 passes by default; its single-pass mode (`--mc-passes 0`) is ten times faster but
+was not evaluated, and a check on one test note showed it failing to flag two missed names that the 10-pass pipeline
+flags at p = 0.99. A no-MC missed-PHI forecaster would have to be fitted and evaluated before it could be recommended.
 
 **What paper 2 contributed.** The PDM and entropy features matter most where the error is *not* "is this PHI" but
 "is the boundary / category right": on the exact target they lift AUROC from 0.947 to 0.975 and the precision after
@@ -259,12 +290,15 @@ read ("model-only span, neighbourhood confident, mean P(O) above 0.19 → right 
 how often the string repeats in the note, and its case pattern is the single most useful group (AUROC 0.995 alone
 on is-PHI); combined with the two papers' features it gives the final forecaster. The missed-PHI side has no
 counterpart in either paper: 85 % of the spans the detector leaves uncovered are reachable as candidates, the
-candidate forecaster recovers 80 % of them at 87 % precision when added at p ≥ 0.5, and the note-level risk puts
+candidate forecaster adds 80 % of the candidates that contain missed PHI, at 87 % precision, when adding at p ≥ 0.5, and the note-level risk puts
 81 % of all misses in the 10 % of notes it ranks riskiest. That is the number a reviewer with a fixed budget needs.
 
-**Where it fails.** (i) The 15 % of misses with no candidate: words the model gives essentially zero PHI mass and no
-rule touches (unprefixed caregiver IDs, lower-case names in free text); no re-scoring can recover what is never
-proposed. (ii) Categories with very few errors on `cal` (dates, ages) give the forecaster almost nothing to learn
+**Where it fails.** (i) The 14 % of misses with no candidate (16 of 114 on `test`): three professions the model does
+flag (mass about 0.99) but on its occupation tags, which the repo's label map ignores because they also fire on
+caregiver roles; ten spans the detector *partly* covers where the missing piece is an age unit ("y/o", "wk old";
+mass 0.01–0.11) or a connecting word or tail of a hospital name ("and", "of", "Clinic"; 0.002–0.02); two
+lower-case names with mass of about 0.005; and one name tail ("SENIOR", 0.51). No re-scoring can recover what is
+never proposed. (ii) Categories with very few errors on `cal` (dates, ages) give the forecaster almost nothing to learn
 from; their confidences are high and, on this corpus, right, but the CIs are wide. (iii) The forecaster's view of
 rule errors is optimistic because the rules were tuned on the same corpus's train split. (iv) The locale shift test
 (fit on en-GB, score on en-US) is reassuring (ECE ≤ 0.014, AUROC ≥ 0.984 on all three targets) but is a mild shift;
@@ -288,19 +322,28 @@ spans, 95 on test, 18 of them wrong): the forecaster's ECE there is 0.035, ten t
   reported.
 - Temperature scaling is reported as worse than the raw score because rule-only spans carry a model probability of
   zero for their category; a probability-only method cannot represent a rule.
+- The saved forecasters need the 10 MC-dropout passes (about 4.3 s per note on CPU); a single-pass version was not
+  evaluated.
+- The "precision after dropping" numbers use a cut chosen with the answer key (at most 0.1 % of true spans lost);
+  they show what the score allows, not a fixed operating threshold.
+- The official 300-note MedDeID benchmark was not scored; all results are on our split of the 6,700-note corpus.
 
 ## 8. Reproduction
 ```
 python -m deidconf.prepare                      # split (once)
 python -m deidconf.detect --split cal           # model pass, cached
-python -m deidconf.mcdropout --split cal        # optional, 10 passes
+python -m deidconf.mcdropout --split cal        # 10 passes; the saved forecasters use these features
 python -m deidconf.evaluate --split cal --rules baseline --model redecode --tag ""   # shipped repo
 python -m deidconf.evaluate --split cal --rules live --model redecode --tag _v5
 python -m deidconf.features --split cal --eval-tag _v5
 python -m deidconf.confidence --features results/features/cal_v5.rules+model.csv --target y_is_phi --save
+#   (repeat for --target y_cat_ok and y_exact)
 python -m deidconf.nearmiss --split cal --eval-tag _v5 --save
 python -m deidconf.robustness --split cal --eval-tag _v5
 python -m deidconf.report --split cal --eval-tag _v5 --baseline-tag ""
-scripts/run_test.sh                             # the single test run
-python -m pytest                                # 42 unit tests
+MC=1 scripts/run_test.sh                        # the single test run, with MC dropout on test
+python -m deidconf.annotate --split test --tag _v5      # per-note view
+python -m deidconf.before_after --split test --tag _v5  # before / after table
+python -m deidconf.figures --split test --tag _v5       # figures in results/figures/
+python -m pytest                                # 43 unit tests
 ```

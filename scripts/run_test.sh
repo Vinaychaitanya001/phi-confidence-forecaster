@@ -1,7 +1,7 @@
 #!/bin/bash
 # The single final run on the held-out TEST split. Nothing here fits or tunes anything: the rules, settings and the
 # four forecasters (model.joblib) come from train / cal. Run ONCE, after every design decision is final.
-#   MC=1 scripts/run_test.sh     also run MC dropout (10 passes, ~75 min on CPU) for the paper-1 variance features
+#   MC=1 scripts/run_test.sh     also run MC dropout (10 passes, ~75 min on CPU); the saved forecasters need these features
 set -euo pipefail
 cd "$(dirname "$0")/.."
 P=.venv/bin/python
@@ -16,7 +16,7 @@ if [ "$MC" = "1" ]; then
   grep -v Warning results/logs/mcdropout_test.log | tail -1
 fi
 echo "== 2. evaluate (live rules + current label map, same settings as cal)"
-$P -m deidconf.evaluate --split test --rules cached --model cached --tag "" 2>&1 | grep -v Warning | grep "rules+model " | sed 's/^/baseline(repo rules, cached): /' || true
+$P -m deidconf.evaluate --split test --rules baseline --model redecode --tag "" 2>&1 | grep -v Warning | grep "rules+model " | sed 's/^/baseline (shipped repo rules, run live): /' || true
 $P -m deidconf.evaluate --split test --rules live --model redecode --tag $TAG 2>&1 | grep -v Warning | tail -5
 echo "== 3. features"
 $P -m deidconf.features --split test --eval-tag $TAG --system rules+model 2>&1 | grep -v Warning | tail -2

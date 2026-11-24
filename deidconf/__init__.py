@@ -19,6 +19,9 @@ Modules (in pipeline order)
   robustness  hard negatives after confidence, cost per note, shift experiments
   report      one Markdown results document per split
   pipeline    end-to-end: new note -> spans with confidences, possible misses, note risk, de-identified text
+  annotate    readable per-note view of a scored split (saved outputs only)
+  before_after  the detector alone vs with the forecasters (drop low-confidence spans, add missed-PHI candidates)
+  figures     the result figures in results/figures/
 """
 from pathlib import Path
 

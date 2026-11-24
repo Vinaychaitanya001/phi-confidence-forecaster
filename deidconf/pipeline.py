@@ -41,7 +41,7 @@ MODEL_FILES = {
 
 class ConfidencePipeline:
     def __init__(self, model_files: dict[str, str] | None = None, threads: int = 4, review_below: float = 0.9,
-                 add_at: float = 0.5, flag_at: float = 0.2, policy_key: bytes | None = None):
+                 add_at: float = 0.5, flag_at: float = 0.2, policy_key: bytes | None = None, mc_passes: int = 10):
         import joblib
         from deid.config import load_yaml
         from deid.detectors.hf_detector import build_detector
@@ -61,6 +61,7 @@ class ConfidencePipeline:
             print(f"warning: no saved forecaster for {sorted(missing)}; those confidences will be absent", file=sys.stderr)
         self.policy = PolicyEngine(load_yaml(PROJECT_ROOT / "Deidentification/configs/deid_policy.yaml"), key=policy_key)
         self.review_below, self.add_at, self.flag_at = review_below, add_at, flag_at
+        self.mc_passes = mc_passes          # the saved forecasters were fitted with MC-dropout features: 0 is NOT evaluated
         self.system = dict(regex=True, model=True, min_score=0.5)
 
     def _apply(self, name: str, rows: list[dict]) -> np.ndarray:
@@ -72,6 +73,28 @@ class ConfidencePipeline:
             if c not in X:
                 X[c] = np.nan
         return fc["model"].predict_proba(X[fc["features"]])[:, 1]
+
+    def _mc(self, text: str) -> dict | None:
+        """MC dropout exactly as in deidconf.mcdropout (same seeds, float16 round trip) so that the features match the
+        ones the forecasters were fitted and tested on."""
+        if self.mc_passes <= 0:
+            return None
+        import torch
+        from deidconf.mcdropout import enable_dropout
+        enable_dropout(self.model.model)
+        try:
+            Ps = []
+            for k in range(self.mc_passes):
+                torch.manual_seed(1000 * 100_003 + k)
+                sw = score_words_full(self.model, text)
+                if sw is None:
+                    return None
+                Ps.append(sw[1])
+        finally:
+            self.model.model.eval()
+        S = np.stack(Ps)
+        return {"P_mean": S.mean(0).astype(np.float16).astype(np.float32),
+                "P_std": S.std(0).astype(np.float16).astype(np.float32), "argmax": S.argmax(-1).astype(np.int16)}
 
     def process(self, note_id: str, text: str, lang: str | None = None) -> dict:
         from deid.schema import Entity
@@ -85,9 +108,10 @@ class ConfidencePipeline:
             m_ents = [e.to_dict() for e in model_entities_from_P(self.model, text, spans_w, P)]
             spans_w = np.asarray(spans_w, dtype=int).reshape(-1, 2)
         spans = final_spans(text, r_ents, m_ents, self.cfg, self.system)
+        mc = self._mc(text) if sw is not None else None
         note_stats = {"entropy_mean": float(entropy(P).mean()) if len(P) else float("nan"),
                       "entity_frac": float((self.groups.entity_mass(P) >= 0.5).mean()) if len(P) else float("nan")}
-        feat_rows = [span_features(note, s, P, spans_w, self.groups, None, spans, note_stats) for s in spans]
+        feat_rows = [span_features(note, s, P, spans_w, self.groups, mc, spans, note_stats) for s in spans]
         conf = {k: self._apply(k, feat_rows) for k in ("is_phi", "cat_ok", "exact")}
         out_spans = []
         for i, s in enumerate(spans):
@@ -98,7 +122,7 @@ class ConfidencePipeline:
                               "confidence": c, "action": "replace" if main >= self.review_below else "replace + review"})
         cands = candidates_for_note(note, spans, P, spans_w, self.groups,
                                     self.forecasters.get("missed", {}).get("tau", 0.02))
-        c_rows = [cand_features(note, c, spans, P, spans_w, self.groups, None) for c in cands]
+        c_rows = [cand_features(note, c, spans, P, spans_w, self.groups, mc) for c in cands]
         p_missed = self._apply("missed", c_rows)
         misses = []
         added = []
@@ -145,8 +169,12 @@ def main(argv=None) -> int:
     ap.add_argument("--add-at", type=float, default=0.5)
     ap.add_argument("--flag-at", type=float, default=0.2)
     ap.add_argument("--threads", type=int, default=4)
+    ap.add_argument("--mc-passes", type=int, default=10,
+                    help="MC-dropout passes (default 10, the setting the forecasters were fitted and tested with; "
+                         "0 = single pass, ~10x faster, NOT evaluated: the MC features are then missing)")
     a = ap.parse_args(argv)
-    pipe = ConfidencePipeline(threads=a.threads, review_below=a.review_below, add_at=a.add_at, flag_at=a.flag_at)
+    pipe = ConfidencePipeline(threads=a.threads, review_below=a.review_below, add_at=a.add_at, flag_at=a.flag_at,
+                              mc_passes=a.mc_passes)
     if a.text:
         print(json.dumps(pipe.process("note-1", a.text), indent=1, ensure_ascii=False))
         return 0
